@@ -1,25 +1,26 @@
 package org.usfirst.frc.team2854.robot.subsystems;
 
-import org.usfirst.frc.team2854.robot.OI;
+
 import org.usfirst.frc.team2854.robot.RobotMap;
 import org.usfirst.frc.team2854.robot.commands.Drive;
 
+import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.hal.CanTalonSRX;
+
 
 /**
  *
  */
 
-public class LiftSystem extends Subsystem {
-	CanTalonSRX motorL;
+/*public class LiftSystem extends Subsystem {
+	CANTalon motorL;
 	CanTalonSRX motorR;
 	
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 	public LiftSystem(){
 	motorL = new CanTalonSRX(RobotMap.MapLiftSystem.motorL);
-	motorR = new CanTalonSRX(RobotMap.MapLiftSystem.motorR);
+	motorR = new CANTalonnSRX(RobotMap.MapLiftSystem.motorR);
 	}
 
 	
@@ -43,5 +44,5 @@ public class LiftSystem extends Subsystem {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
     }
-
 }
+*/

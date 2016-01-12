@@ -52,8 +52,8 @@ public class DriveTrain extends Subsystem {
         //setDefaultCommand(new MySpecialCommand());
     }
     
-    
-    public void mecDrive(double x, double y, double t, double a){
+    //old mech drive from calgames test
+   /* public void mecDrive(double x, double y, double t, double a){
 	    double temp = y*Math.cos(Math.toRadians(a)) - x*Math.sin(Math.toRadians(a));
 	    x = y*Math.sin(Math.toRadians(a)) + x*Math.cos(Math.toRadians(a));
 	    y = temp;
@@ -84,6 +84,13 @@ public class DriveTrain extends Subsystem {
 	    motorFR.set(-front_right);//inverts motor
 	    motorBR.set(-back_right);//inverts motor
 	    motorBL.set(back_left); 
-	}
+	}*/
+    
+    public void tankDrive(int y1, int y2){
+    	motorFL.set(y1);
+    	motorBL.set(y1);
+    	motorFR.set(y2);
+    	motorBR.set(y2);
+    }
 }
 

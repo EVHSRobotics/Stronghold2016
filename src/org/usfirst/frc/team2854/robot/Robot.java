@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import org.usfirst.frc.team2854.robot.commands.ExampleCommand;
 import org.usfirst.frc.team2854.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team2854.robot.subsystems.ExampleSubsystem;
-import org.usfirst.frc.team2854.robot.subsystems.LiftSystem;
+import org.usfirst.frc.team2854.robot.subsystems.IntakeSystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -23,7 +23,8 @@ public class Robot extends IterativeRobot {
 	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
 	public static OI oi;
 	public static final DriveTrain driveTrain = new DriveTrain();
-	public static final LiftSystem liftSystem = new LiftSystem();
+	public static final IntakeSystem intakeSystem = new IntakeSystem();
+	//public static final LiftSystem liftSystem = new LiftSystem();
 
     Command autonomousCommand;
 
@@ -35,6 +36,7 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
         // instantiate the command used for the autonomous period
         autonomousCommand = new ExampleCommand();
+        System.out.println("Richard is cool");
     }
 	
 	public void disabledPeriodic() {
@@ -73,6 +75,7 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
+    	System.out.println("HI");
         Scheduler.getInstance().run();
     }
     

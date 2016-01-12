@@ -21,8 +21,14 @@ public class RobotMap {
 		public static final int motorFR = 8;
 		public static final int motorBR = 9;
 	}
-	public static class MapLiftSystem {
+	/*public static class MapLiftSystem {
 		public static final int motorL = 0;
 		public static final int motorR = 1;
+	}*/
+	public static class Front{
+		public static final int motorRO = 5;
+	}
+	public static class Intake{
+		public static final int motorI = 4;
 	}
 }

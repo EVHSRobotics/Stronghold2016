@@ -34,7 +34,7 @@ public class Drive extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	double t;
+    	/*double t;
     	double leftAxisYay = (Robot.oi.getAxis(joystickId, axisLT));
     	double rightAxisYay = (Robot.oi.getAxis(joystickId, axisRT));
     	
@@ -46,6 +46,11 @@ public class Drive extends Command {
     	}
     	
     	Robot.driveTrain.mecDrive(Robot.oi.getAxis(joystickId, OIMap.Axis.LX), Robot.oi.getAxis(joystickId, OIMap.Axis.LY), t, 0);
+    
+    */
+    int y1 = (int) Robot.oi.getAxis(joystickId, axisLT);
+    int y2 = (int) Robot.oi.getAxis(joystickId, axisRT);
+    	
     }
 
     // Make this return true when this Command no longer needs to run execute()
