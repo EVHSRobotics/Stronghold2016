@@ -6,7 +6,9 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
+import org.usfirst.frc.team2854.robot.commands.Drive;
 import org.usfirst.frc.team2854.robot.commands.ExampleCommand;
+import org.usfirst.frc.team2854.robot.commands.Intake;
 import org.usfirst.frc.team2854.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team2854.robot.subsystems.ExampleSubsystem;
 import org.usfirst.frc.team2854.robot.subsystems.IntakeSystem;
@@ -20,13 +22,12 @@ import org.usfirst.frc.team2854.robot.subsystems.IntakeSystem;
  */
 public class Robot extends IterativeRobot {
 
-	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
-	public static OI oi;
-	public static final DriveTrain driveTrain = new DriveTrain();
-	public static final IntakeSystem intakeSystem = new IntakeSystem();
-	//public static final LiftSystem liftSystem = new LiftSystem();
+	private static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
+	private static OI oi;
+	private static final DriveTrain driveTrain = new DriveTrain(RMap.MA, RMap.MAA, RMap.MB, RMap.MBB);
+	private static final IntakeSystem intakeSystem = new IntakeSystem(RMap.MC, RMap.MCC);
 
-    Command autonomousCommand;
+    private Command autonomousCommand;
 
     /**
      * This function is run when the robot is first started up and should be
@@ -59,8 +60,11 @@ public class Robot extends IterativeRobot {
 		// This makes sure that the autonomous stops running when
         // teleop starts running. If you want the autonomous to 
         // continue until interrupted by another command, remove
-        // this line or comment it out.
+        // this line or comment it out
+    	System.out.println("Teleop");
         if (autonomousCommand != null) autonomousCommand.cancel();
+        Scheduler.getInstance().add(new Intake(intakeSystem, oi.controller0.alt, oi.controller0.art, oi.controller0.bx, oi.controller0.bb));
+        Scheduler.getInstance().add(new Drive(driveTrain, oi.controller0.aly, oi.controller0.ary));
     }
 
     /**
@@ -75,7 +79,7 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
-    	System.out.println("HI");
+
         Scheduler.getInstance().run();
     }
     

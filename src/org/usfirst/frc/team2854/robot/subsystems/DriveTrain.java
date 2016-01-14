@@ -1,10 +1,6 @@
 package org.usfirst.frc.team2854.robot.subsystems;
 
-import org.usfirst.frc.team2854.robot.OI;
-import org.usfirst.frc.team2854.robot.RobotMap;
-import org.usfirst.frc.team2854.robot.commands.Drive;
-
-import edu.wpi.first.wpilibj.CANTalon;
+import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -12,34 +8,25 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class DriveTrain extends Subsystem {
 	
-	CANTalon motorFL;
-	CANTalon motorFR;
-	CANTalon motorBR;
-	CANTalon motorBL;
+	private SpeedController fl;
+	private SpeedController fr;
+	private SpeedController bl;
+	private SpeedController br;
 	
-	public DriveTrain(){
+	public DriveTrain(SpeedController frontleft, SpeedController frontright, SpeedController backleft, SpeedController backright){
 		
-		motorFL = new CANTalon(RobotMap.MapDriveTrain.motorFL);
-		motorBL = new CANTalon(RobotMap.MapDriveTrain.motorBL);
-		motorFR = new CANTalon(RobotMap.MapDriveTrain.motorFR);
-		motorBR = new CANTalon(RobotMap.MapDriveTrain.motorBR);
+		fl = frontleft;
+		bl = backleft;
+		fr = frontright;
+		br = backright;
 	}
-	
-	//Methods will be given later***
-	/*public void drive(double x, double y, double t) {
-		motorFL.set(x+y+t);
-		motorBL.set(y-x+t);
-		motorFR.set(y-x-t);
-		motorBR.set(x+y-t);
-	}
-	*/
-	//old drive train
+
 	
 	public void stop() {
-		motorFL.set(0);
-		motorFR.set(0);
-		motorBL.set(0);
-		motorBR.set(0);
+		fl.set(0);
+		fr.set(0);
+		bl.set(0);
+		br.set(0);
 	}
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
@@ -47,50 +34,16 @@ public class DriveTrain extends Subsystem {
 	
 	
     public void initDefaultCommand() {
-    	setDefaultCommand(new Drive(OI.OIMap.JoystickId.JOY1, OI.OIMap.Axis.LY, OI.OIMap.Axis.RY));
-        // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
+
     }
     
-    //old mech drive from calgames test
-   /* public void mecDrive(double x, double y, double t, double a){
-	    double temp = y*Math.cos(Math.toRadians(a)) - x*Math.sin(Math.toRadians(a));
-	    x = y*Math.sin(Math.toRadians(a)) + x*Math.cos(Math.toRadians(a));
-	    y = temp;
-	    if(Math.abs(x+y+t) > 0){
-	        System.out.println("DriveX: " +x + " DriveY: " + y);
-	    }
-	    
-	    double front_left = y + t + x;
-	    double front_right = y - t - x;
-	    double back_left = y + t - x;
-	    double back_right = y - t + x;
-	    
-	    double max = Math.abs(front_left);
-	    if (Math.abs(front_right)>max) {
-	        max = Math.abs(front_right);
-	    }
-	    if (Math.abs(back_left)>max){
-	        max=Math.abs(back_left);
-	    }
-	    if (Math.abs(back_right)>max) {
-	        max=Math.abs(back_right);
-	    }
-	    if (max>1){
-	      front_left/=max; front_right/=max; back_left/=max; back_right/=max;
 
-	    }
-	    motorFL.set(front_left); 
-	    motorFR.set(-front_right);//inverts motor
-	    motorBR.set(-back_right);//inverts motor
-	    motorBL.set(back_left); 
-	}*/
     
-    public void tankDrive(int y1, int y2){
-    	motorFL.set(y1);
-    	motorBL.set(y1);
-    	motorFR.set(y2);
-    	motorBR.set(y2);
+    public void tankDrive(double y1, double y2){
+    	fl.set(-y1/3);
+    	bl.set(-y1/3);
+    	fr.set(y2/3);
+    	br.set(y2/3);
     }
 }
 
