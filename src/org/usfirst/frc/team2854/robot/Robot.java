@@ -13,6 +13,10 @@ import org.usfirst.frc.team2854.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team2854.robot.subsystems.ExampleSubsystem;
 import org.usfirst.frc.team2854.robot.subsystems.IntakeSystem;
 
+import org.usfirst.frc.team2854.robot.commands.PneumaticsCommand;
+import org.usfirst.frc.team2854.robot.subsystems.PneumaticsSubsystem;
+
+
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the IterativeRobot
@@ -26,6 +30,8 @@ public class Robot extends IterativeRobot {
 	private static OI oi;
 	private static final DriveTrain driveTrain = new DriveTrain(RMap.MA, RMap.MAA, RMap.MB, RMap.MBB);
 	private static final IntakeSystem intakeSystem = new IntakeSystem(RMap.MC, RMap.MCC);
+	private static final PneumaticsSubsystem pneumaticsSubsystem = new PneumaticsSubsystem(0, 0, 1);
+
 
     private Command autonomousCommand;
 
@@ -65,6 +71,8 @@ public class Robot extends IterativeRobot {
         if (autonomousCommand != null) autonomousCommand.cancel();
         Scheduler.getInstance().add(new Intake(intakeSystem, oi.controller0.alt, oi.controller0.art, oi.controller0.bx, oi.controller0.bb));
         Scheduler.getInstance().add(new Drive(driveTrain, oi.controller0.aly, oi.controller0.ary));
+        Scheduler.getInstance().add(new PneumaticsCommand(pneumaticsSubsystem, oi.controller0.ba, oi.controller0.bb));
+
     }
 
     /**
