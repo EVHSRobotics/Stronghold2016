@@ -13,8 +13,8 @@ public class Intake extends Command {
 	private IntakeSystem intakeSystem;
 	private Axis lt;
 	private Axis rt;
-	private Button x; //in
-	private Button b; //out
+	private Button x; //out
+	private Button b; //in
     public Intake(IntakeSystem intake, Axis alt, Axis art, Button ax, Button ab) {
     	lt = alt;
     	rt = art;
