@@ -15,6 +15,13 @@ public class RMap{
   public static final Talon MBB = new Talon(0); //done
   public static final CANTalon MCC = new CANTalon(2); //done
   
+  public static final Talon a = new Talon(1); // NOT DONE // FOR ARM
+  
+  public static final Talon b = new Talon(6); // NOT DONE // FOR CLIMBING
+  public static final Talon c = new Talon(7); // NOT DONE // FOR CLIMBING
+  public static final Talon d = new Talon(8); // NOT DONE // FOR CLIMBING
+
+  
   //CANTalon 2 is farthest from roborio
   //CANTalon 3 is nearest to roborio
 }
