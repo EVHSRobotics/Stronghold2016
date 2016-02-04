@@ -14,13 +14,17 @@ public class Drive extends Command {
 	private DriveTrain driveTrain;
 	private Axis leftAxis;
 	private Axis rightAxis;
+	private Axis leftTrigger;
+	private Axis rightTrigger;
 	private Button y;
 	private Button a;
 	
-    public Drive(DriveTrain aDriveTrain, Axis aleft, Axis aright, Button ay, Button aa) {
+    public Drive(DriveTrain aDriveTrain, Axis aleft, Axis aright, Axis lTrig, Axis rTrig, Button ay, Button aa) {
     	
     	leftAxis = aleft;
     	rightAxis = aright;
+    	leftTrigger = lTrig;
+    	rightTrigger = rTrig;
     	driveTrain = aDriveTrain;
     	y = ay;
     	a= aa;
@@ -35,13 +39,13 @@ public class Drive extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	driveTrain.tankDrive(Math.pow(leftAxis.deadbandGet(), 3), Math.pow(rightAxis.deadbandGet(), 3));
-    	if (y.get()==true){
-    		driveTrain.drivestraight();
-    	}
-    	if(a.get() == true){
-    		driveTrain.drivestraightback();
-    	}
+    	
+    	double left = Math.pow(leftAxis.deadbandGet(), 3);
+    	double right = left;
+    	double trigger = Math.pow(rightTrigger.deadbandGet(), 3) - Math.pow(leftTrigger.deadbandGet(), 3);
+    	left -= trigger;
+    	right += trigger;
+    	driveTrain.tankDrive(left, right);
     	//Cubed for smoother driving
     }
 

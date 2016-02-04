@@ -30,17 +30,23 @@ public class DriveTrain extends Subsystem {
 	}
 	
 	//driving imbalance
-	public void drivestraight(){
-		fl.set(1);
-		fr.set(-.85);
-		bl.set(1);
-		br.set(-.85);
+	public void drivestraight(double s){
+		fl.set(s);
+		fr.set(-s);
+		bl.set(s);
+		br.set(-s);
 	}
 	public void drivestraightback(){
 		fl.set(-1);
-		fr.set(.85);
+		fr.set(1);
 		bl.set(-1);
-		br.set(.85);
+		br.set(1);
+	}
+	public void turn(double speed){
+		fl.set(speed);
+		fr.set(speed);
+		bl.set(speed);
+		br.set(speed);
 	}
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
@@ -56,8 +62,8 @@ public class DriveTrain extends Subsystem {
     public void tankDrive(double y1, double y2){
     	fl.set(-y1);
     	bl.set(-y1);
-    	fr.set(y2*.9);
-    	br.set(y2*.9);
+    	fr.set(y2);
+    	br.set(y2);
     }
 }
 
