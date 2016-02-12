@@ -1,6 +1,5 @@
 package org.usfirst.frc.team2854.robot.commands;
 
-import org.usfirst.frc.team2854.robot.oi.Axis;
 import org.usfirst.frc.team2854.robot.oi.Button;
 import org.usfirst.frc.team2854.robot.subsystems.IntakeSystem;
 

@@ -15,13 +15,19 @@ public class Drive extends Command {
 	private Axis leftAxis;
 	private Axis leftTrigger;
 	private Axis rightTrigger;
+	private Button directionButton;
 	
-    public Drive(DriveTrain aDriveTrain, Axis aleft, Axis lTrig, Axis rTrig) {
+	private int direction;
+	
+    public Drive(DriveTrain aDriveTrain, Axis aleft, Axis lTrig, Axis rTrig, Button buttonDirection) {
     	
     	leftAxis = aleft;
     	leftTrigger = lTrig;
     	rightTrigger = rTrig;
     	driveTrain = aDriveTrain;
+    	directionButton = buttonDirection;
+    	
+    	direction = -1;
     }
 
     // Called just before this Command runs the first time
@@ -34,13 +40,19 @@ public class Drive extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	
+    	if(directionButton.get()){
+    		direction *= -1;
+    	}
+    	
     	double left = Math.pow(leftAxis.deadbandGet(), 3);
     	double right = left;
     	double trigger = Math.pow(rightTrigger.deadbandGet(), 3) - Math.pow(leftTrigger.deadbandGet(), 3);
     	left -= trigger;
     	right += trigger;
-    	driveTrain.tankDrive(left, right);
+    	driveTrain.tankDrive(left*direction, right*direction);
     	//Cubed for smoother driving
+    	
+    	
     }
 
     // Make this return true when this Command no longer needs to run execute()
