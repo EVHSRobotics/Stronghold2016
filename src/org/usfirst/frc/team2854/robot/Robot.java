@@ -21,11 +21,9 @@ import org.usfirst.frc.team2854.robot.subsystems.IntakeSystem;
  * directory.
  */
 public class Robot extends IterativeRobot {
-
-	private static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
 	private static OI oi;
-	private static final DriveTrain driveTrain = new DriveTrain(RMap.MA, RMap.MAA, RMap.MB, RMap.MBB);
-	private static final IntakeSystem intakeSystem = new IntakeSystem(RMap.MC, RMap.MCC);
+	private static final DriveTrain driveTrain = new DriveTrain(RMap.TALONSRX_0, RMap.TALONSRX_1, RMap.TALONSRX_3, RMap.TALONSRX_2);
+	private static final IntakeSystem intakeSystem = new IntakeSystem(RMap.TALON_0);
 
     private Command autonomousCommand;
 
@@ -37,7 +35,6 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
         // instantiate the command used for the autonomous period
         autonomousCommand = new ExampleCommand();
-        System.out.println("Richard is cool");
     }
 	
 	public void disabledPeriodic() {
@@ -61,12 +58,12 @@ public class Robot extends IterativeRobot {
         // teleop starts running. If you want the autonomous to 
         // continue until interrupted by another command, remove
         // this line or comment it out
-    	System.out.println("Teleop");
+//    	System.out.println("Teleop");
         if (autonomousCommand != null) autonomousCommand.cancel();
-        //Scheduler.getInstance().add(new Intake(intakeSystem, oi.controller1.alt, oi.controller1.art, oi.controller1.bx, oi.controller1.bb));
-        Scheduler.getInstance().add(new Drive(driveTrain, oi.controller0.aly, oi.controller0.ary, oi.controller0.alt, oi.controller0.art, oi.controller0.by, oi.controller0.ba));
-        System.out.println("Left Y Axis " + oi.controller0.aly);
-        System.out.println("Right Y Axis " + oi.controller0.ary);
+        Scheduler.getInstance().add(new Intake(intakeSystem, oi.controller0.ba, oi.controller0.bx));
+        Scheduler.getInstance().add(new Drive(driveTrain, oi.controller0.aly, oi.controller0.alt, oi.controller0.art));
+//        System.out.println("Left Y Axis " + oi.controller0.aly);
+//        System.out.println("Right Y Axis " + oi.controller0.ary);
     }
 
     /**

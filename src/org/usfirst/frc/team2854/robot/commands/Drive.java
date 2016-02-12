@@ -13,21 +13,15 @@ public class Drive extends Command {
 	
 	private DriveTrain driveTrain;
 	private Axis leftAxis;
-	private Axis rightAxis;
 	private Axis leftTrigger;
 	private Axis rightTrigger;
-	private Button y;
-	private Button a;
 	
-    public Drive(DriveTrain aDriveTrain, Axis aleft, Axis aright, Axis lTrig, Axis rTrig, Button ay, Button aa) {
+    public Drive(DriveTrain aDriveTrain, Axis aleft, Axis lTrig, Axis rTrig) {
     	
     	leftAxis = aleft;
-    	rightAxis = aright;
     	leftTrigger = lTrig;
     	rightTrigger = rTrig;
     	driveTrain = aDriveTrain;
-    	y = ay;
-    	a= aa;
     }
 
     // Called just before this Command runs the first time

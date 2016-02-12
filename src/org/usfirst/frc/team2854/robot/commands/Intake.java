@@ -11,18 +11,12 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class Intake extends Command {
 	private IntakeSystem intakeSystem;
-	private Axis lt;
-	private Axis rt;
-	private Button x; //out
-	private Button b; //in
-    public Intake(IntakeSystem intake, Axis alt, Axis art, Button ax, Button ab) {
-    	lt = alt;
-    	rt = art;
+	private Button buttonX; //out
+	private Button buttonA; //in
+    public Intake(IntakeSystem intake, Button abuttonA, Button abuttonX) {
     	intakeSystem = intake;
-    	x = ax;
-    	b = ab;
-    	
-    	
+    	buttonA = abuttonA;
+    	buttonX = abuttonX;
     }
 
     // Called just before this Command runs the first time
@@ -32,16 +26,12 @@ public class Intake extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	
-    	intakeSystem.roll(rt.deadbandGet()-lt.deadbandGet());
-    	if (x.get() == true){
-    		intakeSystem.boardSet(1);
-    	}
-    	else if (b.get() == true) {
-    		intakeSystem.boardSet(-1);
-    	}
-    	else{
-    		intakeSystem.boardSet(0);
+    	if(buttonA.get()){
+    		intakeSystem.roll(1);
+    	} else if(buttonX.get()) {
+    		intakeSystem.roll(-1);
+    	} else {
+    		intakeSystem.roll(0);
     	}
     }
 
