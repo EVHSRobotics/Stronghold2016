@@ -59,15 +59,35 @@ public class Drive extends Command {
 
 		double left = Math.pow(aku, 3) * direction;
 		double right = left;
-		double trigger = Math.pow(rightTrigger.deadbandGet(), 3)
-				- Math.pow(leftTrigger.deadbandGet(), 3);
+//		double trigger = Math.pow(rightTrigger.deadbandGet(), 3)
+//				- Math.pow(leftTrigger.deadbandGet(), 3);
+		double trigger = piecewise(rightTrigger.deadbandGet()-leftTrigger.deadbandGet());
 		left -= trigger;
 		right += trigger;
+		left =roundBounds(left);
+		right = roundBounds(right);
 
 		driveTrain.tankDrive(left, right);
 		// Cubed for smoother driving
 		System.out.println("Left: " + left + " Right: " + right);
-
+	}
+	
+	private double sigmoid(double in){
+		double val = 1/(0.96034 + 16*Math.pow(Math.E, -6*Math.abs(in)))*Math.signum(in);
+		return val;
+	}
+	
+	private double piecewise(double in){
+		double val = Math.min(in, 4*in*in*in);
+		return val;
+	}
+	private double roundBounds(double in){
+		if(Math.abs(in) < .15){
+			return 0;
+		}else if(Math.abs(in) > .85){
+			return Math.signum(in);
+		}
+		return in;
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
