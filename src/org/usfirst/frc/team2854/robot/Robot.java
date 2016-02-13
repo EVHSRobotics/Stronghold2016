@@ -32,6 +32,7 @@ public class Robot extends IterativeRobot {
      */
     public void robotInit() {
 		oi = new OI();
+		System.out.println("INIT");
         // instantiate the command used for the autonomous period
         autonomousCommand = new ExampleCommand();
     }
@@ -57,7 +58,7 @@ public class Robot extends IterativeRobot {
         // teleop starts running. If you want the autonomous to 
         // continue until interrupted by another command, remove
         // this line or comment it out
-//    	System.out.println("Teleop");
+    	System.out.println("Teleop");
         if (autonomousCommand != null) autonomousCommand.cancel();
         Scheduler.getInstance().add(new Intake(intakeSystem, oi.controller0.ba, oi.controller0.bx));
         Scheduler.getInstance().add(new Drive(driveTrain, oi.controller0.aly, oi.controller0.alt, oi.controller0.art, oi.controller0.bback));

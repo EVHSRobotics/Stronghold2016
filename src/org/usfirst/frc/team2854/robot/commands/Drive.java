@@ -36,22 +36,26 @@ public class Drive extends Command {
         // eg. requires(chassis);
     	requires(driveTrain);
     }
-
+    
+    boolean pressed = false;
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	
-    	if(directionButton.get()){
+    	if(directionButton.get() && !pressed){
     		direction *= -1;
+    		pressed = true;
+    	}else if (!directionButton.get()){
+    		pressed = false;
     	}
     	
-    	double left = Math.pow(leftAxis.deadbandGet(), 3);
+    	double left = Math.pow(leftAxis.deadbandGet(), 3)*direction;
     	double right = left;
     	double trigger = Math.pow(rightTrigger.deadbandGet(), 3) - Math.pow(leftTrigger.deadbandGet(), 3);
     	left -= trigger;
     	right += trigger;
-    	driveTrain.tankDrive(left*direction, right*direction);
+    	driveTrain.tankDrive(left, right);
     	//Cubed for smoother driving
-    	
+    	System.out.println("Left: " + left + " Right: " + right);
     	
     }
 
