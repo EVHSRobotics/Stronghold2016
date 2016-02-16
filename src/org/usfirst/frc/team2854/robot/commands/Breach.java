@@ -1,6 +1,6 @@
 package org.usfirst.frc.team2854.robot.commands;
 
-import org.usfirst.frc.team2854.robot.oi.*;
+import org.usfirst.frc.team2854.robot.oi.Axis;
 import org.usfirst.frc.team2854.robot.subsystems.BreachSystem;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -28,6 +28,7 @@ public class Breach extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	breachSystem.raise(piecewise(liftAxis.deadbandGet()));
+    	System.out.println("breach encoder: " + breachSystem.encoderGet());
     }
 
     private double piecewise(double in){

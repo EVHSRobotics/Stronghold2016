@@ -1,6 +1,7 @@
 package org.usfirst.frc.team2854.robot;
 
 import edu.wpi.first.wpilibj.CANTalon;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Talon;
 
 
@@ -17,4 +18,6 @@ public class RMap{
 	public static final Talon TALON_1 = new Talon(1);
 	public static final Talon TALON_2 = new Talon(2);
 	public static final Talon TALON_3 = new Talon(3);
+	
+	public static final Encoder ENCODER_89 = new Encoder(8, 9);
 }
