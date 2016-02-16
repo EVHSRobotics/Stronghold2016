@@ -57,7 +57,7 @@ public class Drive extends Command {
 }
 		*/ 
 
-		double left = Math.pow(aku, 3) * direction;
+		double left = piecewise(aku) * direction;
 		double right = left;
 //		double trigger = Math.pow(rightTrigger.deadbandGet(), 3)
 //				- Math.pow(leftTrigger.deadbandGet(), 3);
@@ -78,7 +78,12 @@ public class Drive extends Command {
 	}
 	
 	private double piecewise(double in){
-		double val = Math.min(in, 4*in*in*in);
+		double val = 0;
+		if(in > 0){
+			val = Math.min(in, 4*in*in*in);
+		} else {
+			val = Math.max(in,  4*in*in*in);
+		}
 		return val;
 	}
 	private double roundBounds(double in){
