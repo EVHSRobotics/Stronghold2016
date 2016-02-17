@@ -19,5 +19,5 @@ public class RMap{
 	public static final Talon TALON_2 = new Talon(2);
 	public static final Talon TALON_3 = new Talon(3);
 	
-	public static final Encoder ENCODER_89 = new Encoder(8, 9);
+	public static final Encoder ENCODER_89 = new Encoder(8, 9, false, Encoder.EncodingType.k4X); //boolean is whether reversed or not
 }

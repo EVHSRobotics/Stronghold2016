@@ -1,7 +1,9 @@
 package org.usfirst.frc.team2854.robot.commands;
 
 import org.usfirst.frc.team2854.robot.oi.Axis;
+import org.usfirst.frc.team2854.robot.oi.Button;
 import org.usfirst.frc.team2854.robot.subsystems.BreachSystem;
+import org.usfirst.frc.team2854.robot.subsystems.PIDBreachSystem;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -10,14 +12,27 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class Breach extends Command {
 
-	private BreachSystem breachSystem;
+//	private BreachSystem breachSystem; should toggle between these two 
+	private PIDBreachSystem breachSystem;
 	private Axis liftAxis;
+	private Button resetButton;
+	private Button botButton;
+	private Button topButton;
 	
-    public Breach(BreachSystem aBreachSystem, Axis aLiftAxis) {
+	//toggle me
+//    public Breach(BreachSystem aBreachSystem, Axis aLiftAxis, Button aResetButton, Button aBottomButton, Button aTopButton) {
+//        // Use requires() here to declare subsystem dependencies
+//        // eg. requires(chassis);
+//    	breachSystem = aBreachSystem;
+//    	liftAxis = aLiftAxis;
+//    	resetButton = aResetButton;
+//    }
+    public Breach(PIDBreachSystem aBreachSystem, Axis aLiftAxis, Button aResetButton, Button aBottomButton, Button aTopButton) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	breachSystem = aBreachSystem;
     	liftAxis = aLiftAxis;
+    	resetButton = aResetButton;
     }
 
     // Called just before this Command runs the first time
@@ -27,8 +42,23 @@ public class Breach extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	breachSystem.raise(piecewise(liftAxis.deadbandGet()));
-    	System.out.println("breach encoder: " + breachSystem.encoderGet());
+    	if(!breachSystem.getPIDEnabled()){
+    		breachSystem.raise(piecewise(liftAxis.deadbandGet()));
+    	}else{
+        	System.out.println("breach encoder: " + breachSystem.encoderGet());
+        	if(resetButton.getHold()){
+        		breachSystem.resetEncoder();
+        		System.out.println("ENCODER RESET");
+        	}
+        	if(botButton.getHold()){
+        		breachSystem.goTo(PIDBreachSystem.BOT_SETPOINT);
+        		System.out.println("MOVE BOT");
+        	}else if(topButton.getHold()){
+        		System.out.println("MOVE TOP");
+        		breachSystem.goTo(PIDBreachSystem.TOP_SETPOINT);
+        	}
+    	}
+    	
     }
 
     private double piecewise(double in){

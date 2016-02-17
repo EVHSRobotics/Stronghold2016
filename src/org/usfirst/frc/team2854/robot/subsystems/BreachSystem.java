@@ -14,6 +14,7 @@ public class BreachSystem extends Subsystem {
 	
 	private SpeedController defenseMotor;
 	private Encoder breachEncoder;
+	boolean PIDEnabled = false;
 	
 	public BreachSystem(SpeedController aDefenseMotor, Encoder aBreachEncoder) {
 		// TODO Auto-generated constructor stub
@@ -23,6 +24,14 @@ public class BreachSystem extends Subsystem {
 	
 	public void stop(){
 		defenseMotor.set(0);
+	}
+	
+	public boolean getPIDEnabled(){
+		return PIDEnabled;
+	}
+	
+	public void goTo(int i){ //does nothing, just for compatibility
+		
 	}
 	
 	public int encoderGet(){
