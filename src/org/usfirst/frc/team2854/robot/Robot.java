@@ -25,10 +25,10 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
  */
 public class Robot extends IterativeRobot {
 	private static OI oi;
-	private static final CameraSystem cameraSystem = new CameraSystem();
-	private static final DriveTrain driveTrain = new DriveTrain(RMap.TALONSRX_2, RMap.TALONSRX_0, RMap.TALONSRX_1, RMap.TALONSRX_3);
-	private static final IntakeSystem intakeSystem = new IntakeSystem(RMap.TALON_0);
-	private static final BreachSystem breachSystem = new BreachSystem(RMap.TALON_1, RMap.ENCODER_89);
+//	private static final CameraSystem cameraSystem = new CameraSystem();
+	private static final DriveTrain driveTrain = new DriveTrain(RMap.TALONSRX_2, RMap.TALONSRX_4, RMap.TALONSRX_1, RMap.TALONSRX_3);
+	private static final IntakeSystem intakeSystem = new IntakeSystem(RMap.TALON_1);
+	private static final BreachSystem breachSystem = new BreachSystem(RMap.TALON_0, RMap.ENCODER_89);
 
     private Command autonomousCommand;
 
@@ -66,7 +66,7 @@ public class Robot extends IterativeRobot {
         // this line or comment it out
     	System.out.println("Teleop");
         if (autonomousCommand != null) autonomousCommand.cancel();
-        Scheduler.getInstance().add(new Perceive(cameraSystem, oi.controller0.bstart));
+//        Scheduler.getInstance().add(new Perceive(cameraSystem, oi.controller0.bstart));
         Scheduler.getInstance().add(new Intake(intakeSystem, oi.controller0.ba, oi.controller0.bx));
         Scheduler.getInstance().add(new Drive(driveTrain, oi.controller0.aly, oi.controller0.alt, oi.controller0.art, oi.controller0.bback));
         Scheduler.getInstance().add(new Breach(breachSystem, oi.controller0.ary));
@@ -86,7 +86,6 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
-
         Scheduler.getInstance().run();
     }
     

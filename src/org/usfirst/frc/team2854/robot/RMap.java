@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.Talon;
  * Created by Kevin on 10/24/2015.
  */
 public class RMap{
-	public static final CANTalon TALONSRX_0 = new CANTalon(0);
+	public static final CANTalon TALONSRX_4 = new CANTalon(4);
 	public static final CANTalon TALONSRX_1 = new CANTalon(1);
 	public static final CANTalon TALONSRX_2 = new CANTalon(2);
 	public static final CANTalon TALONSRX_3 = new CANTalon(3);
