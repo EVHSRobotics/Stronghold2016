@@ -18,6 +18,7 @@ public class Breach extends Command {
 	private Button resetButton;
 	private Button botButton;
 	private Button topButton;
+	private Button switchButton;
 	
 	//toggle me
 //    public Breach(BreachSystem aBreachSystem, Axis aLiftAxis, Button aResetButton, Button aBottomButton, Button aTopButton) {
@@ -27,38 +28,62 @@ public class Breach extends Command {
 //    	liftAxis = aLiftAxis;
 //    	resetButton = aResetButton;
 //    }
-    public Breach(PIDBreachSystem aBreachSystem, Axis aLiftAxis, Button aResetButton, Button aBottomButton, Button aTopButton) {
+    public Breach(PIDBreachSystem aBreachSystem, Axis aLiftAxis, Button aResetButton, Button aBottomButton, 
+    		Button aTopButton, Button aSwitchButton) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	breachSystem = aBreachSystem;
     	liftAxis = aLiftAxis;
     	resetButton = aResetButton;
+    	resetButton = aResetButton;
+    	botButton = aBottomButton;
+    	topButton = aTopButton;
+    	switchButton = aSwitchButton;
+
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
     	requires(breachSystem);
+    	breachSystem.enableZeroing(true);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if(!breachSystem.getPIDEnabled()){
-    		breachSystem.raise(piecewise(liftAxis.deadbandGet()));
+    	if(breachSystem.isZeroing()){
+    		System.out.println("ZEROING");
+    		if(breachSystem.counterSame()){
+        		breachSystem.raise(-.5);
+    		}else{ //hall effect has been tripped
+    			breachSystem.incrementCounter();
+    			breachSystem.raise(0);
+    			breachSystem.enableZeroing(false);
+    		}
     	}else{
-        	System.out.println("breach encoder: " + breachSystem.encoderGet());
+        	if(switchButton.getHold()){
+        		if(breachSystem.getPIDEnabled()){
+            		breachSystem.disablePID();
+        		}else{
+        			breachSystem.enablePID();
+        		}
+        	}
         	if(resetButton.getHold()){
-        		breachSystem.resetEncoder();
+        		breachSystem.enableZeroing(true);
         		System.out.println("ENCODER RESET");
         	}
-        	if(botButton.getHold()){
-        		breachSystem.goTo(PIDBreachSystem.BOT_SETPOINT);
-        		System.out.println("MOVE BOT");
-        	}else if(topButton.getHold()){
-        		System.out.println("MOVE TOP");
-        		breachSystem.goTo(PIDBreachSystem.TOP_SETPOINT);
+        	if(!breachSystem.getPIDEnabled()){
+        		breachSystem.raise(piecewise(liftAxis.deadbandGet()));
+        	}else{ //PID is enabled
+            	System.out.println("breach encoder: " + breachSystem.encoderGet());
+            	if(botButton.getHold()){
+            		breachSystem.goTo(PIDBreachSystem.BOT_SETPOINT);
+            		System.out.println("MOVE BOT");
+            	}else if(topButton.getHold()){
+            		System.out.println("MOVE TOP");
+            		breachSystem.goTo(PIDBreachSystem.TOP_SETPOINT);
+            	}
         	}
     	}
-    	
     }
 
     private double piecewise(double in){

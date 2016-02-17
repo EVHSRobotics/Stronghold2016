@@ -68,7 +68,8 @@ public class Robot extends IterativeRobot {
 //        Scheduler.getInstance().add(new Perceive(cameraSystem, oi.controller0.bstart));
         Scheduler.getInstance().add(new Intake(intakeSystem, oi.controller0.ba, oi.controller0.bx));
         Scheduler.getInstance().add(new Drive(driveTrain, oi.controller0.aly, oi.controller0.alt, oi.controller0.art, oi.controller0.bback));
-        Scheduler.getInstance().add(new Breach(breachSystem, oi.controller0.ary, oi.controller0.bstart, oi.controller0.bb, oi.controller0.by));
+        Scheduler.getInstance().add(new Breach(breachSystem, oi.controller0.ary, 
+        		oi.controller0.bstart, oi.controller0.bb, oi.controller0.by, oi.controller0.brb));
 //        System.out.println("Left Y Axis " + oi.controller0.aly);
 //        System.out.println("Right Y Axis " + oi.controller0.ary);
     }

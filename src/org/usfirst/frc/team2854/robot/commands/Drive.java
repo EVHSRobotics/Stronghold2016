@@ -69,7 +69,7 @@ public class Drive extends Command {
 
 		driveTrain.tankDrive(left, right);
 		// Cubed for smoother driving
-		System.out.println("Left: " + left + " Right: " + right);
+//		System.out.println("Left: " + left + " Right: " + right);
 	}
 	
 	private double sigmoid(double in){
