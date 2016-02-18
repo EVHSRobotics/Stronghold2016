@@ -1,11 +1,10 @@
 
 package org.usfirst.frc.team2854.robot;
 
+import org.usfirst.frc.team2854.robot.commands.Auto;
 import org.usfirst.frc.team2854.robot.commands.Breach;
 import org.usfirst.frc.team2854.robot.commands.Drive;
-import org.usfirst.frc.team2854.robot.commands.ExampleCommand;
 import org.usfirst.frc.team2854.robot.commands.Intake;
-import org.usfirst.frc.team2854.robot.subsystems.BreachSystem;
 import org.usfirst.frc.team2854.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team2854.robot.subsystems.IntakeSystem;
 import org.usfirst.frc.team2854.robot.subsystems.PIDBreachSystem;
@@ -39,7 +38,7 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 		System.out.println("INIT");
         // instantiate the command used for the autonomous period
-        autonomousCommand = new ExampleCommand();
+        autonomousCommand = new Auto(3, breachSystem);
     }
 	
 	public void disabledPeriodic() {
