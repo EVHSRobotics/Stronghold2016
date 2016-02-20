@@ -37,24 +37,19 @@ public class Drive extends Command {
 		requires(driveTrain);
 	}
 
-	boolean pressed = false;
-
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 
-		if (directionButton.get() && !pressed) {
+		if (directionButton.getHold()) {
 			direction *= -1;
-			pressed = true;
-		} else if (!directionButton.get()) {
-			pressed = false;
 		}
 
 		double aku = leftAxis.deadbandGet();
 
 		/* if (Math.abs(aku)>.9){
-		aku = Math.round(aku);
-		System.out.println("nitros activated");
-}
+			aku = Math.round(aku);
+			System.out.println("nitros activated");
+		}
 		*/ 
 
 		double left = piecewise(aku) * direction;
@@ -64,11 +59,11 @@ public class Drive extends Command {
 		double trigger = piecewise(rightTrigger.deadbandGet()-leftTrigger.deadbandGet());
 		left -= trigger;
 		right += trigger;
-		left =roundBounds(left);
+		left = roundBounds(left);
 		right = roundBounds(right);
-
+		
 		driveTrain.tankDrive(left, right);
-		// Cubed for smoother driving
+//		 Cubed for smoother driving
 //		System.out.println("Left: " + left + " Right: " + right);
 	}
 	
