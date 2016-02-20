@@ -57,7 +57,7 @@ public class Drive extends Command {
 }
 		*/ 
 
-		double left = Math.pow(aku, 3) * direction;
+		double left = piecewise(aku) * direction;
 		double right = left;
 //		double trigger = Math.pow(rightTrigger.deadbandGet(), 3)
 //				- Math.pow(leftTrigger.deadbandGet(), 3);
@@ -69,7 +69,7 @@ public class Drive extends Command {
 
 		driveTrain.tankDrive(left, right);
 		// Cubed for smoother driving
-		System.out.println("Left: " + left + " Right: " + right);
+//		System.out.println("Left: " + left + " Right: " + right);
 	}
 	
 	private double sigmoid(double in){
@@ -78,7 +78,12 @@ public class Drive extends Command {
 	}
 	
 	private double piecewise(double in){
-		double val = Math.min(in, 4*in*in*in);
+		double val = 0;
+		if(in > 0){
+			val = Math.min(in, 4*in*in*in);
+		} else {
+			val = Math.max(in,  4*in*in*in);
+		}
 		return val;
 	}
 	private double roundBounds(double in){
@@ -94,7 +99,7 @@ public class Drive extends Command {
 	protected boolean isFinished() {
 		return false;
 	}
-
+	
 	// Called once after isFinished returns true
 	protected void end() {
 		driveTrain.stop();
