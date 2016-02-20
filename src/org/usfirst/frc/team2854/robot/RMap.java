@@ -21,14 +21,14 @@ public class RMap{
 	public static final Talon TALON_3 = new Talon(3);
 	public static final Talon TALON_4 = new Talon(4);
 	public static final Talon TALON_5 = new Talon(5);
-	public static final Talon TALON_6 = new Talon(6);
-	public static final Talon TALON_7 = new Talon(7);
+//	public static final Talon TALON_6 = new Talon(6);
+//	public static final Talon TALON_7 = new Talon(7);
 	
 	public static final Encoder ENCODER_89 = new Encoder(8, 9, true, Encoder.EncodingType.k4X);
 	public static final Encoder ENCODER_67 = new Encoder(6, 7, true, Encoder.EncodingType.k4X);
 	//boolean is whether reversed or not
 
-	public static final Counter COUNTER_5 = new Counter(5); //insert DIO port
-	public static final Counter COUNTER_6 = new Counter(6); //insert DIO port
+//	public static final Counter COUNTER_5 = new Counter(5); //insert DIO port
+//	public static final Counter COUNTER_6 = new Counter(6); //insert DIO port
 	
 }

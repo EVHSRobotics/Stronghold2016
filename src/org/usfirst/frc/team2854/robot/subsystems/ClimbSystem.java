@@ -17,7 +17,7 @@ public class ClimbSystem extends Subsystem {
 	private SpeedController winchMotor;
 	boolean PIDEnabled = false;
 	
-	public ClimbSystem(SpeedController aArmMotor, Encoder aArmEncoder, SpeedController aWinchMotor) {
+	public ClimbSystem(SpeedController aArmMotor, SpeedController aWinchMotor, Encoder aArmEncoder) {
 		// TODO Auto-generated constructor stub
 		armMotor = aArmMotor;
 		armEncoder = aArmEncoder;
