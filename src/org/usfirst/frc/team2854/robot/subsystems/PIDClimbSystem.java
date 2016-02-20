@@ -8,25 +8,26 @@ import edu.wpi.first.wpilibj.command.PIDSubsystem;
 /**
  *
  */
-public class PIDBreachSystem extends PIDSubsystem {
+public class PIDClimbSystem extends PIDSubsystem {
 
     // Initialize your subsystem here
-	private SpeedController defenseMotor;
-	private Encoder breachEncoder;
+	
+	private SpeedController armMotor;
+	private Encoder armEncoder;
+	private SpeedController winchMotor;
 	public static final int TOP_SETPOINT = 800;
 	public static final int BOT_SETPOINT = 0;
 	private boolean PIDEnabled = true;
 	private boolean zeroing = false;
-	
-	Counter counter; //insert DIO port
+	private Counter counter;
 	
 	private int count = counter.get();
-	
-	public PIDBreachSystem(SpeedController aDefenseMotor, Encoder aBreachEncoder, Counter aCounter) {
-		super("Breach", .008, 0, .00075);
+	public PIDClimbSystem(SpeedController aArmMotor, Encoder aArmEncoder, SpeedController aWinchMotor, Counter aCounter) {
+		super("arm", .008, 0, .00075);
 		// TODO Auto-generated constructor stub
-		defenseMotor = aDefenseMotor;
-		breachEncoder = aBreachEncoder;
+		armMotor = aArmMotor;
+		armEncoder = aArmEncoder;
+		winchMotor = aWinchMotor;
 		counter = aCounter;
 		//enablePID(); no PID right now, since no setpoints
 		disablePID();
@@ -75,9 +76,11 @@ public class PIDBreachSystem extends PIDSubsystem {
 		return PIDEnabled;
 	}
 	public void stop(){
-		defenseMotor.set(0);
+		armMotor.set(0);
+		winchMotor.set(0);
 		disablePID();
 	}
+	
 	
 	public void enablePID(){
 		PIDEnabled = true;
@@ -90,15 +93,19 @@ public class PIDBreachSystem extends PIDSubsystem {
 	}
 	
 	public int encoderGet(){
-		return breachEncoder.getRaw();
+		return armEncoder.getRaw();
 	}
 	
 	public void resetEncoder(){
-		breachEncoder.reset();
+		armEncoder.reset();
 	}
 	
-	public void raise(double speed){
-		defenseMotor.set(speed);
+	public void moveArm(double speed){
+		armMotor.set(speed);
+	}
+	
+	public void moveWinch(double speed){
+		winchMotor.set(speed);
 	}
     
     public void initDefaultCommand() {
@@ -116,6 +123,6 @@ public class PIDBreachSystem extends PIDSubsystem {
     protected void usePIDOutput(double output) {
         // Use output to drive your system, like a motor
         // e.g. yourMotor.set(output);
-    	defenseMotor.set(output);
+    	armMotor.set(output);
     }
 }
