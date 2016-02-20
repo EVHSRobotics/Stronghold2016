@@ -13,12 +13,14 @@ public class Intake extends Command {
 	private IntakeSystem intakeSystem;
 	private Axis outAxis; //out
 	private Axis inAxis; //in
-	private Button moveButton; //*  to drop intake
-    public Intake(IntakeSystem intake, Axis aOutAxis, Axis aInAxis, Button aMoveButton) {
+	private Button moveButton; //  to drop intake
+	private Button outButton; //to undrop intake
+    public Intake(IntakeSystem intake, Axis aOutAxis, Axis aInAxis, Button aMoveButton, Button aMoveButton2) {
     	intakeSystem = intake;
     	outAxis = aOutAxis;
     	inAxis = aInAxis;
     	moveButton = aMoveButton;
+    	outButton = aMoveButton2;
     }
 
     // Called just before this Command runs the first time
@@ -36,10 +38,12 @@ public class Intake extends Command {
     		intakeSystem.roll(0);
     	}
     	if(moveButton.get()){
-    		intakeSystem.drop(.5);
+    		intakeSystem.drop(0.5);
+    	} else if(outButton.get()){
+    		intakeSystem.drop(-0.5);
     	} else {
     		intakeSystem.drop(0);
-    	}
+    	} 
     }
 
     // Make this return true when this Command no longer needs to run execute()

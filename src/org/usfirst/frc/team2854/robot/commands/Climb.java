@@ -27,6 +27,7 @@ public class Climb extends Command {
         // eg. requires(chassis);
     	climbSystem = aclimbSystem;
     	liftAxis = aLiftAxis;
+    	winchAxis = aWinchAxis;
     }
 //    public Climb(ClimbSystem aClimbSystem, Axis aLiftAxis, Axis aWinchAxis, Button aResetButton, Button aBottomButton, 
 //    		Button aTopButton, Button aSwitchButton) {

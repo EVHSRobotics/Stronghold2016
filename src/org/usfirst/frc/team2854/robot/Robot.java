@@ -27,9 +27,9 @@ public class Robot extends IterativeRobot {
 	private static OI oi;
 //	private static final CameraSystem cameraSystem = new CameraSystem();
 	private static final DriveTrain driveTrain = new DriveTrain(RMap.TALONSRX_2, RMap.TALONSRX_4, RMap.TALONSRX_1, RMap.TALONSRX_3);
-	private static final IntakeSystem intakeSystem = new IntakeSystem(RMap.TALON_1, RMap.TALON_2);
-	private static final BreachSystem breachSystem = new BreachSystem(RMap.TALON_0, RMap.ENCODER_89);
-	private static final ClimbSystem climbSystem = new ClimbSystem(RMap.TALON_3, RMap.TALON_4, RMap.ENCODER_67);
+	private static final IntakeSystem intakeSystem = new IntakeSystem(RMap.TALON_5, RMap.TALON_0);
+	private static final BreachSystem breachSystem = new BreachSystem(RMap.TALON_1, RMap.ENCODER_89);
+	private static final ClimbSystem climbSystem = new ClimbSystem(RMap.TALON_2, RMap.TALON_3, RMap.ENCODER_67);
 
     private Command autonomousCommand;
 
@@ -71,8 +71,7 @@ public class Robot extends IterativeRobot {
 //        Scheduler.getInstance().add(new Perceive(cameraSystem, oi.controller0.bstart));
 
         Scheduler.getInstance().add(new Drive(driveTrain, oi.controller0.aly, oi.controller0.alt, oi.controller0.art, oi.controller0.bback));
-        
-        Scheduler.getInstance().add(new Intake(intakeSystem, oi.controller1.alt, oi.controller1.art, oi.controller1.brb));
+        Scheduler.getInstance().add(new Intake(intakeSystem, oi.controller1.alt, oi.controller1.art, oi.controller1.ba, oi.controller1.bx));
         Scheduler.getInstance().add(new Breach(breachSystem, oi.controller1.aly));
         Scheduler.getInstance().add(new Climb(climbSystem, oi.controller1.ary, oi.controller1.arx));
 //        System.out.println("Left Y Axis " + oi.controller0.aly);
