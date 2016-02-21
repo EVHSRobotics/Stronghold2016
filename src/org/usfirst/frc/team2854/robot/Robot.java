@@ -29,7 +29,7 @@ public class Robot extends IterativeRobot {
 	private static final DriveTrain driveTrain = new DriveTrain(RMap.TALONSRX_2, RMap.TALONSRX_1, RMap.TALONSRX_4, RMap.TALONSRX_3);
 	private static final IntakeSystem intakeSystem = new IntakeSystem(RMap.TALON_5, RMap.TALON_0);
 	private static final BreachSystem breachSystem = new BreachSystem(RMap.TALON_1, RMap.ENCODER_89);
-	private static final ClimbSystem climbSystem = new ClimbSystem(RMap.TALON_2, RMap.TALON_3, RMap.ENCODER_67);
+	private static final ClimbSystem climbSystem = new ClimbSystem(RMap.TALON_2, RMap.TALON_3, RMap.TALON_4, RMap.ENCODER_67);
 
     private Command autonomousCommand;
 

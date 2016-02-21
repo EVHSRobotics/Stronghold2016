@@ -15,13 +15,15 @@ public class ClimbSystem extends Subsystem {
 	private SpeedController armMotor;
 	private Encoder armEncoder;
 	private SpeedController winchMotor;
+	private SpeedController winchMotor2;
 	boolean PIDEnabled = false;
 	
-	public ClimbSystem(SpeedController aArmMotor, SpeedController aWinchMotor, Encoder aArmEncoder) {
+	public ClimbSystem(SpeedController aArmMotor, SpeedController aWinchMotor, SpeedController aWinchMotor2, Encoder aArmEncoder) {
 		// TODO Auto-generated constructor stub
 		armMotor = aArmMotor;
 		armEncoder = aArmEncoder;
 		winchMotor = aWinchMotor;
+		winchMotor2 = aWinchMotor2;
 	}
 	
 	public void stop(){
@@ -51,6 +53,7 @@ public class ClimbSystem extends Subsystem {
 	
 	public void moveWinch(double speed){
 		winchMotor.set(speed);
+		winchMotor2.set(speed);
 	}
 
     public void initDefaultCommand() {
