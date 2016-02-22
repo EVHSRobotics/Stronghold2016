@@ -1,15 +1,15 @@
 
 package org.usfirst.frc.team2854.robot;
 
-import org.usfirst.frc.team2854.robot.commands.Auto;
 import org.usfirst.frc.team2854.robot.commands.Breach;
 import org.usfirst.frc.team2854.robot.commands.Climb;
 import org.usfirst.frc.team2854.robot.commands.Drive;
 import org.usfirst.frc.team2854.robot.commands.Intake;
-import org.usfirst.frc.team2854.robot.subsystems.BreachSystem;
+import org.usfirst.frc.team2854.robot.subsystems.Breaching;
 import org.usfirst.frc.team2854.robot.subsystems.ClimbSystem;
 import org.usfirst.frc.team2854.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team2854.robot.subsystems.IntakeSystem;
+import org.usfirst.frc.team2854.robot.subsystems.PIDBreachSystem;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -26,10 +26,11 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 public class Robot extends IterativeRobot {
 	private static OI oi;
 //	private static final CameraSystem cameraSystem = new CameraSystem();
-	private static final DriveTrain driveTrain = new DriveTrain(RMap.TALONSRX_2, RMap.TALONSRX_1, RMap.TALONSRX_4, RMap.TALONSRX_3);
-	private static final IntakeSystem intakeSystem = new IntakeSystem(RMap.TALON_5, RMap.TALON_0);
-	private static final BreachSystem breachSystem = new BreachSystem(RMap.TALON_1, RMap.ENCODER_89);
-	private static final ClimbSystem climbSystem = new ClimbSystem(RMap.TALON_2, RMap.TALON_3, RMap.TALON_4, RMap.ENCODER_67);
+
+	private static  Breaching breachSystem;
+	private static  DriveTrain driveTrain;
+	private static  IntakeSystem intakeSystem;
+	private static  ClimbSystem climbSystem;
 
     private Command autonomousCommand;
 
@@ -39,6 +40,14 @@ public class Robot extends IterativeRobot {
      */
     public void robotInit() {
 		oi = new OI();
+		RMap.initMap();
+		breachSystem = new PIDBreachSystem(RMap.TALON_1, RMap.ENCODER_01, RMap.COUNTER_9);
+//		breachSystem = new BreachSystem(RMap.TALON_1, RMap.ENCODER_01, RMap.COUNTER_9);
+		
+		//ONE SRX IS NOT WORKING DO NOT USE DRIVE TRAIN
+		driveTrain = new DriveTrain(RMap.TALONSRX_2, RMap.TALONSRX_1, RMap.TALONSRX_1, RMap.TALONSRX_3);
+		intakeSystem = new IntakeSystem(RMap.TALON_5, RMap.TALON_0);
+		climbSystem = new ClimbSystem(RMap.TALON_2, RMap.TALON_3, RMap.TALON_4, RMap.ENCODER_34);
 		System.out.println("INIT");
         // instantiate the command used for the autonomous period
 //        autonomousCommand = new Auto(3, breachSystem);
@@ -72,7 +81,8 @@ public class Robot extends IterativeRobot {
 
         Scheduler.getInstance().add(new Drive(driveTrain, oi.controller0.aly, oi.controller0.alt, oi.controller0.art, oi.controller0.bstart));
         Scheduler.getInstance().add(new Intake(intakeSystem, oi.controller1.alt, oi.controller1.art, oi.controller1.ba, oi.controller1.bx));
-        Scheduler.getInstance().add(new Breach(breachSystem, oi.controller1.aly));
+        Scheduler.getInstance().add(new Breach(breachSystem, oi.controller1.aly, oi.controller1.bback,
+        		oi.controller1.blb, oi.controller1.bls, oi.controller1.brb, oi.controller1.bstart));
         Scheduler.getInstance().add(new Climb(climbSystem, oi.controller1.ary, oi.controller1.arx));
 //        System.out.println("Left Y Axis " + oi.controller0.aly);
 //        System.out.println("Right Y Axis " + oi.controller0.ary);

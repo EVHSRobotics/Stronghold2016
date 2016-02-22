@@ -8,45 +8,60 @@ import edu.wpi.first.wpilibj.command.PIDSubsystem;
 /**
  *
  */
-public class PIDBreachSystem extends PIDSubsystem {
+public class PIDBreachSystem extends PIDSubsystem implements Breaching {
 
     // Initialize your subsystem here
 	private SpeedController defenseMotor;
 	private Encoder breachEncoder;
-	public static final int TOP_SETPOINT = 800;
-	public static final int BOT_SETPOINT = 0;
+	public static final int TOP_SETPOINT = 850;
+	public static final int MID_SETPOINT = 660;
+	public static final int BOT_SETPOINT = 50;
 	private boolean PIDEnabled = true;
 	private boolean zeroing = false;
 	
-	Counter counter; //insert DIO port
+	private Counter counter; //insert DIO port
 	
-	private int count = counter.get();
+	private int count;
 	
 	public PIDBreachSystem(SpeedController aDefenseMotor, Encoder aBreachEncoder, Counter aCounter) {
-		super("Breach", .008, 0, .00075);
-		// TODO Auto-generated constructor stub
+		super("Breach", .008, 0, .01);
 		defenseMotor = aDefenseMotor;
 		breachEncoder = aBreachEncoder;
 		counter = aCounter;
-		//enablePID(); no PID right now, since no setpoints
-		disablePID();
+		enablePID();
+//		disablePID();
 		setOutputRange(-1,1); //min, max vals for motor to move
-		setAbsoluteTolerance(80); //how close arm can be
-		goTo(BOT_SETPOINT);
-		
+		setAbsoluteTolerance(40); //how close arm can be
+		count = counter.get();
+	}
+	
+//	public void disable(){
+//		
+//	}
+//	public void enable(){
+//		
+//	}
+//	public int getPosition(){
+//		return 0;
+//	}
+//	
+//	public void setSetpoint(int i){
+//		
+//	}
+	
+	public int getCounter(){
+		return counter.get();
 	}
 	
 	public void enableZeroing(boolean b){
 		zeroing = b;
-		if(zeroing){
-			count = counter.get(); //get initial position
-		}
+		count = counter.get(); //get initial or final position
 		if(PIDEnabled){
 			if(zeroing){ //if it's resetting, disable PID
 				disable();
 			}else{ //finished zeroing
 				resetEncoder();
-				setSetpoint(getPosition()); //prevents any future motion upon reenable; could get rid of if desired
+				goTo(getPosition()); //prevents any future motion upon reenable; could get rid of if desired
 				enable();
 			}
 		}
@@ -62,12 +77,8 @@ public class PIDBreachSystem extends PIDSubsystem {
 		return count == counter.get();
 	}
 	
-	public void incrementCounter(){
-		count = counter.get();
-	}
-
 	
-	public void goTo(int setpoint){
+	public void goTo(double setpoint){
 		setSetpoint(setpoint);
 	}
 	
@@ -97,7 +108,7 @@ public class PIDBreachSystem extends PIDSubsystem {
 		breachEncoder.reset();
 	}
 	
-	public void raise(double speed){
+	public void moveArm(double speed){
 		defenseMotor.set(speed);
 	}
     
