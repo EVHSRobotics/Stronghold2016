@@ -47,7 +47,10 @@ public class Breach extends Command {
     protected void execute() {
     	if(((PIDBreachSystem)breachSystem).isZeroing()){
     		System.out.println("ZEROING");
-    		if(((PIDBreachSystem)breachSystem).counterSame()){
+    		if(resetButton.getHold()){ //manual breakout, but do not reset encoder
+    			((PIDBreachSystem)breachSystem).moveArm(0);
+    			((PIDBreachSystem)breachSystem).enableZeroing(false);
+    		}else if(((PIDBreachSystem)breachSystem).counterSame()){
         		((PIDBreachSystem)breachSystem).moveArm(-.2);
     		}else{ //hall effect has been tripped, counter vals are now different
     			((PIDBreachSystem)breachSystem).moveArm(0);
