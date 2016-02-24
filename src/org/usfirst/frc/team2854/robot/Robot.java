@@ -41,13 +41,13 @@ public class Robot extends IterativeRobot {
     public void robotInit() {
 		oi = new OI();
 		RMap.initMap();
-		breachSystem = new PIDBreachSystem(RMap.TALON_1, RMap.ENCODER_01, RMap.COUNTER_9);
+		breachSystem = new PIDBreachSystem(RMap.TALONSRX_1, RMap.ENCODER_34, RMap.COUNTER_6);
 //		breachSystem = new BreachSystem(RMap.TALON_1, RMap.ENCODER_01, RMap.COUNTER_9);
 		
 		//ONE SRX IS NOT WORKING DO NOT USE DRIVE TRAIN
-		driveTrain = new DriveTrain(RMap.TALONSRX_2, RMap.TALONSRX_1, RMap.TALONSRX_1, RMap.TALONSRX_3);
+		driveTrain = new DriveTrain(RMap.TALON_1, RMap.TALON_3, RMap.TALON_2, RMap.TALON_4);
 		intakeSystem = new IntakeSystem(RMap.TALON_5, RMap.TALON_0);
-		climbSystem = new ClimbSystem(RMap.TALON_2, RMap.TALON_3, RMap.TALON_4, RMap.ENCODER_34);
+//		climbSystem = new ClimbSystem(RMap.TALON_2, RMap.TALON_3, RMap.TALON_4, RMap.ENCODER_34);
 		System.out.println("INIT");
         // instantiate the command used for the autonomous period
 //        autonomousCommand = new Auto(3, breachSystem);
@@ -83,7 +83,7 @@ public class Robot extends IterativeRobot {
         Scheduler.getInstance().add(new Intake(intakeSystem, oi.controller1.alt, oi.controller1.art, oi.controller1.ba, oi.controller1.bx));
         Scheduler.getInstance().add(new Breach(breachSystem, oi.controller1.aly, oi.controller1.bback,
         		oi.controller1.blb, oi.controller1.bls, oi.controller1.brb, oi.controller1.bstart));
-        Scheduler.getInstance().add(new Climb(climbSystem, oi.controller1.ary, oi.controller1.arx));
+//        Scheduler.getInstance().add(new Climb(climbSystem, oi.controller1.ary, oi.controller1.arx));
 //        System.out.println("Left Y Axis " + oi.controller0.aly);
 //        System.out.println("Right Y Axis " + oi.controller0.ary);
     }

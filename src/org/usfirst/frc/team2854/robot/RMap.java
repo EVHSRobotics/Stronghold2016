@@ -28,7 +28,7 @@ public class RMap{
 	public static  Encoder ENCODER_01;
 	//boolean is whether reversed or not
 
-	public static  Counter COUNTER_9; //insert DIO port
+	public static  Counter COUNTER_6; //insert DIO port
 //	public static  Counter COUNTER_6 = new Counter(6); //insert DIO port
 	
 	public static void initMap(){
@@ -50,7 +50,7 @@ public class RMap{
 		ENCODER_01 = new Encoder(0, 1, true, Encoder.EncodingType.k4X);
 		//boolean is whether reversed or not
 
-		COUNTER_9 = new Counter(9); //insert DIO port
+		COUNTER_6 = new Counter(6); //insert DIO port
 //		COUNTER_6 = new Counter(6); //insert DIO port
 	}
 }
