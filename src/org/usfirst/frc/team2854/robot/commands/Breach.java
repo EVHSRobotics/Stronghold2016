@@ -40,6 +40,7 @@ public class Breach extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	requires((Subsystem) breachSystem);
+    	((PIDBreachSystem)breachSystem).initDefaultPID();
 //    	((PIDBreachSystem)breachSystem).enableZeroing(true);
     }
 
@@ -61,8 +62,10 @@ public class Breach extends Command {
         	if(switchButton.getHold()){
         		if(((PIDBreachSystem)breachSystem).getPIDEnabled()){
             		((PIDBreachSystem)breachSystem).disablePID();
+            		((PIDBreachSystem)breachSystem).changeDefaultPID(false);
         		}else{
         			((PIDBreachSystem)breachSystem).enablePID();
+        			((PIDBreachSystem)breachSystem).changeDefaultPID(true);
         		}
         	}
         	if(resetButton.getHold() && (breachSystem.encoderGet() >= 0)){ //only works (hopefully) if arm is ahead of magnet

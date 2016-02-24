@@ -3,8 +3,10 @@ package org.usfirst.frc.team2854.robot.commands;
 import org.usfirst.frc.team2854.robot.oi.Axis;
 import org.usfirst.frc.team2854.robot.oi.Button;
 import org.usfirst.frc.team2854.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team2854.robot.subsystems.PIDBreachSystem;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -16,16 +18,18 @@ public class Drive extends Command {
 	private Axis leftTrigger;
 	private Axis rightTrigger;
 	private Button directionButton;
+	private Button pidButton;
 
 	private int direction;
 
 	public Drive(DriveTrain aDriveTrain, Axis aleft, Axis lTrig, Axis rTrig,
-			Button buttonDirection) {
+			Button buttonDirection, Button pidSwitch) {
 		leftAxis = aleft;
 		leftTrigger = lTrig;
 		rightTrigger = rTrig;
 		driveTrain = aDriveTrain;
 		directionButton = buttonDirection;
+		pidButton = pidSwitch;
 
 		direction = -1;
 	}
@@ -39,10 +43,19 @@ public class Drive extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-
 		if (directionButton.getHold()) {
 			direction *= -1;
 		}
+//		
+//		if(pidButton.getHold()){
+//    		if(driveTrain.getPIDEnabled()){
+//        		driveTrain.disablePID();
+//        		driveTrain.changeDefaultPID(false);
+//    		}else{
+//    			driveTrain.enablePID();
+//    			driveTrain.changeDefaultPID(true);
+//    		}
+//		}
 
 		double aku = leftAxis.deadbandGet();
 
@@ -63,6 +76,14 @@ public class Drive extends Command {
 		right = roundBounds(right);
 		
 		driveTrain.tankDrive(left, right);
+		SmartDashboard.putNumber("LEFT DRIVE", left);
+		SmartDashboard.putNumber("RIGHT DRIVE", right);
+//		driveTrain.pidDrive(left, right);
+//		SmartDashboard.putBoolean("DRIVE PID ENABLED", driveTrain.getPIDEnabled());
+//		SmartDashboard.putNumber("leftDriveEnc", driveTrain.getLeftEncoderRate());
+//		SmartDashboard.putNumber("rightDriveEnc", driveTrain.getRightEncoderRate());
+//		SmartDashboard.putNumber("left speed", driveTrain.getLeftSpeed());
+//		SmartDashboard.putNumber("right speed", driveTrain.getRightSpeed());
 //		 Cubed for smoother driving
 //		System.out.println("Left: " + left + " Right: " + right);
 	}

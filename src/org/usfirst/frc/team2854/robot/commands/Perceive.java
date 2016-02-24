@@ -1,5 +1,5 @@
 package org.usfirst.frc.team2854.robot.commands;
-
+	
 import org.usfirst.frc.team2854.robot.oi.Button;
 import org.usfirst.frc.team2854.robot.subsystems.CameraSystem;
 
@@ -26,12 +26,10 @@ public class Perceive extends Command {
     protected void initialize() {
     }
 
-    private boolean pressed = false;
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	cameraSystem.updateCam();
-    	if (cameraFlipButton.get() && !pressed){
-    		pressed = true;
+    	if (cameraFlipButton.getHold()){
     		if (cameraSystem.getCurrCam() == cameraSystem.CAM_0){
     			System.out.println("Switched to cam1");
     			cameraSystem.changeCam(cameraSystem.CAM_1);
@@ -39,10 +37,8 @@ public class Perceive extends Command {
     			System.out.println("Switched to cam0");
     			cameraSystem.changeCam(cameraSystem.CAM_0);
     		}
-    	} else {
-    		pressed = false;
     	}
-//    	Timer.delay(0.005);	mehbe we need this
+//    	Timer.delay(0.005);	mehbe we need this - we don't
     }
 
     // Make this return true when this Command no longer needs to run execute()

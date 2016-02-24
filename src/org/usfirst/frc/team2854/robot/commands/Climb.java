@@ -6,6 +6,7 @@ import org.usfirst.frc.team2854.robot.subsystems.ClimbSystem;
 import org.usfirst.frc.team2854.robot.subsystems.PIDClimbSystem;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -86,6 +87,7 @@ public class Climb extends Command {
 //        	}
 //    	}
     	double winchSpeed = winchAxis.deadbandGet();
+    	SmartDashboard.putNumber("WINCH", winchAxis.deadbandGet());
 //    	if(Math.abs(winchSpeed) > 0){
 //    		climbSystem.moveWinch(winchSpeed);
 //    	}else{

@@ -1,5 +1,7 @@
 package org.usfirst.frc.team2854.robot;
 
+import org.usfirst.frc.team2854.robot.subsystems.RateEncoder;
+
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj.Encoder;
@@ -10,28 +12,30 @@ import edu.wpi.first.wpilibj.Talon;
  * Created by Kevin on 10/24/2015.
  */
 public class RMap{
-//	public static  CANTalon TALONSRX_4 = new CANTalon(4);
-	public static  CANTalon TALONSRX_1;
-	public static  CANTalon TALONSRX_2;
-	public static  CANTalon TALONSRX_3;
+//	public final  CANTalon TALONSRX_4 = new CANTalon(4);
+	public final CANTalon TALONSRX_1;
+	public final CANTalon TALONSRX_2;
+	public final CANTalon TALONSRX_3;
 	
-	public static  Talon TALON_0;
-	public static  Talon TALON_1;
-	public static  Talon TALON_2;
-	public static  Talon TALON_3;
-	public static  Talon TALON_4;
-	public static  Talon TALON_5;
-//	public static  Talon TALON_6 = new Talon(6);
-//	public static  Talon TALON_7 = new Talon(7);
+	public final Talon TALON_0;
+	public final Talon TALON_1;
+	public final Talon TALON_2;
+	public final Talon TALON_3;
+	public final Talon TALON_4;
+	public final Talon TALON_5;
+//	public final Talon TALON_6 = new Talon(6);
+//	public final Talon TALON_7 = new Talon(7);
 	
-	public static  Encoder ENCODER_34;
-	public static  Encoder ENCODER_01;
+	public final Encoder ENCODER_34;
+	public final RateEncoder ENCODER_01;
+//	public final Encoder ENCODER_67;
+	public final RateEncoder ENCODER_89;
 	//boolean is whether reversed or not
 
-	public static  Counter COUNTER_9; //insert DIO port
-//	public static  Counter COUNTER_6 = new Counter(6); //insert DIO port
+	public final Counter COUNTER_2; //insert DIO port
+//	public final Counter COUNTER_6 = new Counter(6); //insert DIO port
 	
-	public static void initMap(){
+	public RMap(){
 //		TALONSRX_4 = new CANTalon(4);
 		TALONSRX_1 = new CANTalon(1);
 		TALONSRX_2 = new CANTalon(2);
@@ -47,10 +51,12 @@ public class RMap{
 //		TALON_7 = new Talon(7);
 		
 		ENCODER_34 = new Encoder(3, 4, true, Encoder.EncodingType.k4X);
-		ENCODER_01 = new Encoder(0, 1, true, Encoder.EncodingType.k4X);
+		ENCODER_01 = new RateEncoder(0, 1, true, Encoder.EncodingType.k4X, "right enc PID");
+//		ENCODER_67 = new Encoder(6, 7, true, Encoder.EncodingType.k4X);
+		ENCODER_89 = new RateEncoder(8, 9, true, Encoder.EncodingType.k4X, "left enc PID");
 		//boolean is whether reversed or not
 
-		COUNTER_9 = new Counter(9); //insert DIO port
+		COUNTER_2 = new Counter(2); //insert DIO port
 //		COUNTER_6 = new Counter(6); //insert DIO port
 	}
 }

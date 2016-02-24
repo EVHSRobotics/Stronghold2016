@@ -17,6 +17,7 @@ public class PIDBreachSystem extends PIDSubsystem implements Breaching {
 	public static final int MID_SETPOINT = 660;
 	public static final int BOT_SETPOINT = 50;
 	private boolean PIDEnabled = true;
+	private boolean defaultPID = true; //turns it on or off on start
 	private boolean zeroing = false;
 	
 	private Counter counter; //insert DIO port
@@ -28,11 +29,23 @@ public class PIDBreachSystem extends PIDSubsystem implements Breaching {
 		defenseMotor = aDefenseMotor;
 		breachEncoder = aBreachEncoder;
 		counter = aCounter;
-		enablePID();
-//		disablePID();
 		setOutputRange(-1,1); //min, max vals for motor to move
 		setAbsoluteTolerance(40); //how close arm can be
 		count = counter.get();
+	}
+	
+	public void changeDefaultPID(boolean b){
+		defaultPID = b;
+	}
+	
+	
+	
+	public void initDefaultPID(){
+		if(defaultPID){
+			enablePID();
+		}else{
+			disablePID();
+		}
 	}
 	
 //	public void disable(){
