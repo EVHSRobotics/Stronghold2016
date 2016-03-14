@@ -8,45 +8,38 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class DriveTrain extends Subsystem {
 	
-	private SpeedController fl;
-	private SpeedController fr;
-	private SpeedController bl;
-	private SpeedController br;
+	private SpeedController motor1;
+	public SpeedController motor2;
+
 	
-	public DriveTrain(SpeedController frontleft, SpeedController frontright, SpeedController backleft, SpeedController backright){
+	public DriveTrain(SpeedController amotor1, SpeedController amotor2){
 		
-		fl = frontleft;
-		bl = backleft;
-		fr = frontright;
-		br = backright;
+		motor1=amotor1;
+		motor2 = amotor2;
+		
 	}
 
 	
 	public void stop() {
-		fl.set(0);
-		fr.set(0);
-		bl.set(0);
-		br.set(0);
+		motor1.set(0);
+		motor2.set(0);
+		
 	}
 	
 	//driving imbalance
-	public void drivestraight(double s){
-		fl.set(s);
-		fr.set(-s);
-		bl.set(s);
-		br.set(-s);
+	public void driveStraight(double t){
+		motor1.set(t);
+		motor2.set(t);
+		
 	}
 	public void drivestraightback(){
-		fl.set(-1);
-		fr.set(1);
-		bl.set(-1);
-		br.set(1);
+		motor1.set(-1);
+		motor2.set(-1);
+		
 	}
 	public void turn(double speed){
-		fl.set(speed);
-		fr.set(speed);
-		bl.set(speed);
-		br.set(speed);
+		motor1.set(speed);
+		motor2.set(speed);
 	}
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
@@ -59,11 +52,9 @@ public class DriveTrain extends Subsystem {
     
 
     
-    public void tankDrive(double y1, double y2){
-    	fl.set(-y1);
-    	bl.set(-y1);
-    	fr.set(y2);
-    	br.set(y2);
+    public void tankDrive(double y1){
+    	motor1.set(-y1);
+    	motor2.set(-y1);
     }
 }
 
