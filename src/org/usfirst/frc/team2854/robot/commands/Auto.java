@@ -34,7 +34,7 @@ public class Auto extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	if(Math.abs(Timer.getFPGATimestamp() - startTime) < driveTime){
-    		driveTrain.tankDrive(.75, .75);
+    		driveTrain.tankDrive(.75);
         	//change later with encoders?
     	} else {
     		breachSystem.goTo(PIDBreachSystem.BOT_SETPOINT);

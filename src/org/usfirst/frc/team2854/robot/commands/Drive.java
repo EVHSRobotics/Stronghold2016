@@ -16,7 +16,6 @@ public class Drive extends Command {
 	private Axis leftTrigger;
 	private Axis rightTrigger;
 	private Button directionButton;
-
 	private int direction;
 
 	public Drive(DriveTrain aDriveTrain, Axis aleft, Axis lTrig, Axis rTrig,
@@ -67,7 +66,7 @@ public class Drive extends Command {
 		left =roundBounds(left);
 		right = roundBounds(right);
 
-		driveTrain.tankDrive(left, right);
+		driveTrain.tankDrive(left);
 		// Cubed for smoother driving
 //		System.out.println("Left: " + left + " Right: " + right);
 	}
