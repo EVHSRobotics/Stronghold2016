@@ -2,6 +2,7 @@ package org.usfirst.frc.team2854.robot.commands;
 
 import org.usfirst.frc.team2854.robot.subsystems.DriveTrain;
 
+import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -9,17 +10,17 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class DriveAuto extends Command {
-	
-	private DriveTrain driveTrain;
-
-    public DriveAuto() {
-        // Use requires() here to declare subsystem dependencies
+	DriveTrain driveTrain;
+    public DriveAuto(DriveTrain adriveTrain) {
+    	driveTrain = adriveTrain;
+    	// Use requires() here to declare subsystem dependencies
         // eg. requires(chassis)
-    	requires(driveTrain);
+    
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	requires(driveTrain);
     }
 
     // Called repeatedly when this Command is scheduled to run

@@ -26,7 +26,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * directory.
  */
 public class Robot extends IterativeRobot {
-	private static OI oi;
+//	private static OI oi;
 //	private static final CameraSystem cameraSystem = new CameraSystem();
 	private static final DriveTrain driveTrain = new DriveTrain(RMap.motor1, RMap.motor2); //change motor port in rmap
 	//private static final IntakeSystem intakeSystem = new IntakeSystem(RMap.TALON_1);
@@ -41,11 +41,11 @@ public class Robot extends IterativeRobot {
      */
     public void robotInit() {
     	autoChooser = new SendableChooser();
-    	autoChooser.addDefault("Default", new DriveAuto());
+    	autoChooser.addDefault("Default", new DriveAuto(driveTrain));
     	autoChooser.addObject("Experimental", new Experimental());
     	SmartDashboard.putData("Auto Mode Chooser", autoChooser);
     	
-		oi = new OI();
+//		oi = new OI();
 		/*
 		System.out.println("INIT");
         // instantiate the command used for the autonomous period
@@ -68,7 +68,7 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
-        Scheduler.getInstance().run();
+//        Scheduler.getInstance().run();
     }
 
     public void teleopInit() {
@@ -80,7 +80,7 @@ public class Robot extends IterativeRobot {
         if (autonomousCommand != null) autonomousCommand.cancel();
 //        Scheduler.getInstance().add(new Perceive(cameraSystem, oi.controller0.bstart));
         //Scheduler.getInstance().add(new Intake(intakeSystem, oi.controller0.ba, oi.controller0.bx));
-        Scheduler.getInstance().add(new Drive(driveTrain, oi.controller0.aly, oi.controller0.alt, oi.controller0.art, oi.controller0.bback));
+//        Scheduler.getInstance().add(new Drive(driveTrain, oi.controller0.aly, oi.controller0.alt, oi.controller0.art, oi.controller0.bback));
   //      Scheduler.getInstance().add(new Breach(breachSystem, oi.controller0.ary, 
     //    		oi.controller0.bstart, oi.controller0.bb, oi.controller0.by, oi.controller0.brb));
 //        System.out.println("Left Y Axis " + oi.controller0.aly);

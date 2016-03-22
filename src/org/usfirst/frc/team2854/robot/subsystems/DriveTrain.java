@@ -14,7 +14,7 @@ public class DriveTrain extends Subsystem {
 	
 	public DriveTrain(SpeedController amotor1, SpeedController amotor2){
 		
-		motor1=amotor1;
+		motor1=  amotor1;
 		motor2 = amotor2;
 		
 	}
