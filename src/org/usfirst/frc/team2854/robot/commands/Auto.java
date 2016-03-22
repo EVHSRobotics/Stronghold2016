@@ -3,7 +3,8 @@ package org.usfirst.frc.team2854.robot.commands;
 import org.usfirst.frc.team2854.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team2854.robot.subsystems.PIDBreachSystem;
 
-import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -11,6 +12,7 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class Auto extends Command {
 	
+	private Encoder encoder;
 	private DriveTrain driveTrain;
 	private double startTime = -1;
 	private double driveTime; //this should be in seconds
@@ -28,18 +30,26 @@ public class Auto extends Command {
     	
     	
     	requires(driveTrain);
-    	startTime = Timer.getFPGATimestamp();
+    	encoder = new Encoder(8,9, true, EncodingType.k4X);
+    	encoder.reset();
+    	//startTime = Timer.getFPGATimestamp();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if(Math.abs(Timer.getFPGATimestamp() - startTime) < driveTime){
-    		driveTrain.tankDrive(.75, .75);
+    	double startPoint = encoder.getRaw();
+    	driveTrain.tankDrive(.75);
+    	if (encoder.getRaw() - startPoint>500){
+    		driveTrain.stop();
+    	}
+    	/*if(Math.abs(Timer.getFPGATimestamp() - startTime) < driveTime){
+    		driveTrain.tankDrive(.75);
         	//change later with encoders?
     	} else {
     		breachSystem.goTo(PIDBreachSystem.BOT_SETPOINT);
     		end();
-    	}    	
+    	}*/
+    	
     }
 
     // Make this return true when this Command no longer needs to run execute()

@@ -67,7 +67,7 @@ public class Drive extends Command {
 		left =roundBounds(left);
 		right = roundBounds(right);
 
-		driveTrain.tankDrive(left, right);
+		//driveTrain.tankDrive(left, right);
 		// Cubed for smoother driving
 //		System.out.println("Left: " + left + " Right: " + right);
 	}
