@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2854.robot;
 
+import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Victor;
 
@@ -21,4 +22,5 @@ public class RMap{
 	
 	public static final Encoder ENCODER_89 = new Encoder(8, 9, true, Encoder.EncodingType.k4X); //boolean is whether reversed or not
 	*/
+//	public static SpeedController motor2;
 }

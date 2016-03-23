@@ -1,22 +1,13 @@
 
 package org.usfirst.frc.team2854.robot;
 
-import org.usfirst.frc.team2854.robot.commands.Auto;
-import org.usfirst.frc.team2854.robot.commands.Breach;
-import org.usfirst.frc.team2854.robot.commands.Drive;
 import org.usfirst.frc.team2854.robot.commands.DriveAuto;
-import org.usfirst.frc.team2854.robot.commands.Experimental;
-import org.usfirst.frc.team2854.robot.commands.Intake;
 import org.usfirst.frc.team2854.robot.subsystems.DriveTrain;
-import org.usfirst.frc.team2854.robot.subsystems.IntakeSystem;
-import org.usfirst.frc.team2854.robot.subsystems.PIDBreachSystem;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -26,31 +17,34 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * directory.
  */
 public class Robot extends IterativeRobot {
-//	private static OI oi;
+	Command autonomousCommand;
+	private static OI oi;
 //	private static final CameraSystem cameraSystem = new CameraSystem();
 	private static final DriveTrain driveTrain = new DriveTrain(RMap.motor1, RMap.motor2); //change motor port in rmap
 	//private static final IntakeSystem intakeSystem = new IntakeSystem(RMap.TALON_1);
 	//private static final PIDBreachSystem breachSystem = new PIDBreachSystem(RMap.TALON_0, RMap.ENCODER_89);
 
-    Command autonomousCommand;
-    SendableChooser autoChooser;
 
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
     public void robotInit() {
-    	autoChooser = new SendableChooser();
-    	autoChooser.addDefault("Default", new DriveAuto(driveTrain));
-    	autoChooser.addObject("Experimental", new Experimental());
-    	SmartDashboard.putData("Auto Mode Chooser", autoChooser);
-    	
+//    	autonomousCommand.init();
+//    	autoChooser = new SendableChooser();
+//    	autoChooser.addDefault("Default", new DriveAuto(driveTrain));
+//    	autoChooser.addObject("Experimental", new Experimental());
+//    	SmartDashboard.putData("Auto Mode Chooser	", autoChooser);
+////    	Command autoDriveTest;
+//    	autoDriveTest = new DriveAuto(driveTrain);	
+//    	autonomousCommand = (Command) autoChooser.getSelected();
 //		oi = new OI();
 		/*
 		System.out.println("INIT");
         // instantiate the command used for the autonomous period
         autonomousCommand = new Auto(3, breachSystem);
         */
+    	autonomousCommand = new DriveAuto(driveTrain);
     }
 	
 	public void disabledPeriodic() {
@@ -60,15 +54,17 @@ public class Robot extends IterativeRobot {
     public void autonomousInit() {
         // schedule the autonomous command (example)
        // if (autonomousCommand != null) autonomousCommand.start();
-    	autonomousCommand = (Command) autoChooser.getSelected();
     	autonomousCommand.start();
+
     }
 
     /**
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
-//        Scheduler.getInstance().run();
+    	Scheduler.getInstance().run();
+    	
+    	
     }
 
     public void teleopInit() {
