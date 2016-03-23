@@ -2,17 +2,20 @@ package org.usfirst.frc.team2854.robot.commands;
 
 import org.usfirst.frc.team2854.robot.subsystems.DriveTrain;
 
-import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
  */
 public class DriveAuto extends Command {
 	DriveTrain driveTrain;
+	Encoder encoder;
     public DriveAuto(DriveTrain adriveTrain) {
     	driveTrain = adriveTrain;
+    	requires(driveTrain);
     	// Use requires() here to declare subsystem dependencies
         // eg. requires(chassis)
     
@@ -20,12 +23,13 @@ public class DriveAuto extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	requires(driveTrain);
+    	encoder = new Encoder(1,2, false, Encoder.EncodingType.k4X);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	driveTrain.driveStraight(.75);;
+    	driveTrain.driveStraight(.75);
+    	SmartDashboard.putNumber("Encoder Value", encoder.getRaw());
     	Timer.delay(2); //change later with encoders?
     	driveTrain.stop();
     }

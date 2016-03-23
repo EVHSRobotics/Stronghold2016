@@ -40,10 +40,10 @@ public class Robot extends IterativeRobot {
      * used for any initialization code.
      */
     public void robotInit() {
-    	autoChooser = new SendableChooser();
-    	autoChooser.addDefault("Default", new DriveAuto(driveTrain));
-    	autoChooser.addObject("Experimental", new Experimental());
-    	SmartDashboard.putData("Auto Mode Chooser", autoChooser);
+    	//autoChooser = new SendableChooser();
+    	//autoChooser.addDefault("Default", new DriveAuto(driveTrain));
+    	//autoChooser.addObject("Experimental", new Experimental());
+    	//SmartDashboard.putData("Auto Mode Chooser", autoChooser);
     	
 //		oi = new OI();
 		/*
@@ -60,7 +60,7 @@ public class Robot extends IterativeRobot {
     public void autonomousInit() {
         // schedule the autonomous command (example)
        // if (autonomousCommand != null) autonomousCommand.start();
-    	autonomousCommand = (Command) autoChooser.getSelected();
+    	autonomousCommand = (DriveAuto) autoChooser.getSelected();
     	autonomousCommand.start();
     }
 
