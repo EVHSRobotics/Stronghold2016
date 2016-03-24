@@ -58,6 +58,8 @@ public class DriveTrain extends Subsystem {
     public void tankDrive(double y1){
     	motor1.set(-y1);
     	motor2.set(-y1);
+    	motor3.set(y1);
+    	motor4.set(y1);
     }
 }
 

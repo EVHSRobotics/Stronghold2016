@@ -18,16 +18,18 @@ public class PIDBreachSystem extends PIDSubsystem {
 	private boolean PIDEnabled = true;
 	private boolean zeroing = false;
 	
-	Counter counter = new Counter(6); //insert DIO port
+	private Counter counter; //insert DIO port
 	
-	private int count = counter.get();
+	private int count;
 	
-	public PIDBreachSystem(SpeedController aDefenseMotor, Encoder aBreachEncoder) {
+	public PIDBreachSystem(SpeedController aDefenseMotor, Encoder aBreachEncoder, Counter aCounter) {
 		super("Breach", .008, 0, .00075);
 		// TODO Auto-generated constructor stub
 		defenseMotor = aDefenseMotor;
 		breachEncoder = aBreachEncoder;
 		enablePID();
+		counter = aCounter;
+		count = counter.get();
 		setOutputRange(-1,1); //min, max vals for motor to move
 		setAbsoluteTolerance(80); //how close arm can be
 		goTo(BOT_SETPOINT);
