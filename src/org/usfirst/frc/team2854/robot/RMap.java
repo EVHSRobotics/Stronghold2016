@@ -9,7 +9,9 @@ import edu.wpi.first.wpilibj.Victor;
  */
 public class RMap{
 	public static final Talon motor1 = new Talon(9);
-	public static final Victor motor2 = new Victor(8); 
+	public static final Victor motor2 = new Victor(8);
+	public static final Talon motor3 = new Talon(7);
+	public static final Talon motor4 = new Talon(6);
 	/*public static final CANTalon TALONSRX_1 = new CANTalon(1);
 	public static final CANTalon TALONSRX_2 = new CANTalon(2);
 	public static final CANTalon TALONSRX_3 = new CANTalon(3);

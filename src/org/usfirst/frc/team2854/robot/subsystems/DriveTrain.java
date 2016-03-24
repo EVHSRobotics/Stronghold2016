@@ -10,13 +10,15 @@ public class DriveTrain extends Subsystem {
 	
 	private SpeedController motor1;
 	public SpeedController motor2;
-
+	private SpeedController motor3;
+	public SpeedController motor4;
 	
-	public DriveTrain(SpeedController amotor1, SpeedController amotor2){
+	public DriveTrain(SpeedController amotor1, SpeedController amotor2, SpeedController amotor3, SpeedController amotor4){
 		
 		motor1=  amotor1;
 		motor2 = amotor2;
-		
+		motor3 = amotor3;
+		motor4 = amotor4;
 	}
 
 	
@@ -30,7 +32,8 @@ public class DriveTrain extends Subsystem {
 	public void driveStraight(double t){
 		motor1.set(t);
 		motor2.set(t);
-		
+		motor3.set(t);
+		motor4.set(t);
 	}
 	public void drivestraightback(){
 		motor1.set(-1);

@@ -13,7 +13,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class DriveAuto extends Command {
 	DriveTrain driveTrain;
 	Encoder encoder;
-    public DriveAuto(DriveTrain adriveTrain) {
+	int t = 10;
+
+	public DriveAuto(DriveTrain adriveTrain) {
     	driveTrain = adriveTrain;
     	requires(driveTrain);
     	// Use requires() here to declare subsystem dependencies
@@ -23,12 +25,13 @@ public class DriveAuto extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	encoder = new Encoder(1,2, false, Encoder.EncodingType.k4X);
+    	encoder = new Encoder(1,2, true, Encoder.EncodingType.k4X);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	driveTrain.driveStraight(.75);
+    	SmartDashboard.putNumber("Print", t++);
     	SmartDashboard.putNumber("Encoder Value", encoder.getRaw());
     	Timer.delay(2); //change later with encoders?
     	driveTrain.stop();
