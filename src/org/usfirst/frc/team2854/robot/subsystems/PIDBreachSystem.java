@@ -13,9 +13,9 @@ public class PIDBreachSystem extends PIDSubsystem implements Breaching {
     // Initialize your subsystem here
 	private SpeedController defenseMotor;
 	private Encoder breachEncoder;
-	public static final int TOP_SETPOINT = 850;
-	public static final int MID_SETPOINT = 660;
-	public static final int BOT_SETPOINT = 50;
+	public static final int TOP_SETPOINT = 970;
+	public static final int MID_SETPOINT = 870;
+	public static final int BOT_SETPOINT = 200;
 	private boolean PIDEnabled = true;
 	private boolean defaultPID = true; //turns it on or off on start
 	private boolean zeroing = false;
@@ -68,7 +68,7 @@ public class PIDBreachSystem extends PIDSubsystem implements Breaching {
 	
 	public void enableZeroing(boolean b){
 		zeroing = b;
-		count = counter.get(); //get initial or final position
+		setCounterStart();
 		if(PIDEnabled){
 			if(zeroing){ //if it's resetting, disable PID
 				disable();
@@ -78,7 +78,10 @@ public class PIDBreachSystem extends PIDSubsystem implements Breaching {
 				enable();
 			}
 		}
-
+	}
+	
+	public void setCounterStart(){
+		count = counter.get();
 	}
 	
 	public boolean isZeroing(){

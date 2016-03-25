@@ -3,8 +3,8 @@ package org.usfirst.frc.team2854.robot;
 
 import org.usfirst.frc.team2854.robot.commands.Breach;
 import org.usfirst.frc.team2854.robot.commands.Drive;
+import org.usfirst.frc.team2854.robot.commands.DriveAuto;
 import org.usfirst.frc.team2854.robot.commands.Intake;
-import org.usfirst.frc.team2854.robot.commands.Perceive;
 import org.usfirst.frc.team2854.robot.subsystems.Breaching;
 import org.usfirst.frc.team2854.robot.subsystems.CameraSystem;
 import org.usfirst.frc.team2854.robot.subsystems.ClimbSystem;
@@ -42,16 +42,16 @@ public class Robot extends IterativeRobot {
     public void robotInit() {
 		oi = new OI();
 		RMap rmap = new RMap();
-		breachSystem = new PIDBreachSystem(rmap.TALON_1, rmap.ENCODER_34, rmap.COUNTER_2);
+		breachSystem = new PIDBreachSystem(rmap.TALONSRX_1, rmap.ENCODER_34, rmap.COUNTER_6);
 //		breachSystem = new BreachSystem(rmap.TALON_1, rmap.ENCODER_01, rmap.COUNTER_9);
 		
-		cameraSystem = new CameraSystem();
+//		cameraSystem = new CameraSystem();
 		driveTrain = new DriveTrain(rmap.TALON_1, rmap.TALON_2, rmap.TALON_3, rmap.TALON_4, rmap.ENCODER_89, rmap.ENCODER_01);
 		intakeSystem = new IntakeSystem(rmap.TALON_5, rmap.TALON_0);
 //		climbSystem = new ClimbSystem(rmap.TALON_2, rmap.TALON_3, rmap.TALON_4, rmap.ENCODER_34);
 		System.out.println("INIT");
         // instantiate the command used for the autonomous period
-//        autonomousCommand = new Auto(3, breachSystem);
+        autonomousCommand = new DriveAuto(driveTrain, 6000, 5000);
 		
     }
 	
@@ -78,7 +78,7 @@ public class Robot extends IterativeRobot {
         // this line or comment it out
     	System.out.println("Teleop");
         if (autonomousCommand != null) autonomousCommand.cancel();
-        Scheduler.getInstance().add(new Perceive(cameraSystem, oi.controller0.brb));
+//        Scheduler.getInstance().add(new Perceive(cameraSystem, oi.controller0.brb));
 
         Scheduler.getInstance().add(new Drive(driveTrain, oi.controller0.aly, oi.controller0.alt, oi.controller0.art, oi.controller0.bstart, oi.controller0.bback));
         Scheduler.getInstance().add(new Intake(intakeSystem, oi.controller1.alt, oi.controller1.art, oi.controller1.ba, oi.controller1.bx));

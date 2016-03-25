@@ -11,8 +11,14 @@ import edu.wpi.first.wpilibj.command.Command;
 public class DriveAuto extends Command {
 	
 	private DriveTrain driveTrain;
-
-    public DriveAuto() {
+	private double leftDist;
+	private double rightDist;
+	private double rightStart;
+	private double leftStart;
+    public DriveAuto(DriveTrain dTrain, double lDist, double rDist) {
+		leftDist = lDist;
+		rightDist = rDist;
+		driveTrain = dTrain;
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis)
     	requires(driveTrain);
@@ -20,13 +26,22 @@ public class DriveAuto extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	leftStart = driveTrain.getLeftEnc();
+    	rightStart = driveTrain.getRightEnc();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	driveTrain.tankDrive(.75, .75);;
-    	Timer.delay(5); //change later with encoders?
-    	driveTrain.stop();
+    	if(driveTrain.getLeftEnc() - leftStart < leftDist){
+    		driveTrain.moveLeft(.8);
+    	}else{
+    		driveTrain.moveLeft(0);
+    	}
+    	if(driveTrain.getRightEnc() - rightStart< rightDist){
+    		driveTrain.moveRight(.8);
+    	}else{
+    		driveTrain.moveRight(0);
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()

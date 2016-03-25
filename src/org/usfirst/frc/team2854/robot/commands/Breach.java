@@ -35,6 +35,7 @@ public class Breach extends Command {
     	midButton = aMidButton;
     	topButton = aTopButton;
     	switchButton = aSwitchButton;
+    	requires((Subsystem)breachSystem);
     }
 
     // Called just before this Command runs the first time
@@ -52,7 +53,7 @@ public class Breach extends Command {
     			((PIDBreachSystem)breachSystem).moveArm(0);
     			((PIDBreachSystem)breachSystem).enableZeroing(false);
     		}else if(((PIDBreachSystem)breachSystem).counterSame()){
-        		((PIDBreachSystem)breachSystem).moveArm(-.2);
+        		((PIDBreachSystem)breachSystem).moveArm(-.6);
     		}else{ //hall effect has been tripped, counter vals are now different
     			((PIDBreachSystem)breachSystem).moveArm(0);
     			((PIDBreachSystem)breachSystem).enableZeroing(false);

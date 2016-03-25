@@ -31,7 +31,7 @@ public class Drive extends Command {
 		directionButton = buttonDirection;
 		pidButton = pidSwitch;
 
-		direction = -1;
+		direction = 1;
 	}
 
 	// Called just before this Command runs the first time
@@ -80,8 +80,8 @@ public class Drive extends Command {
 		SmartDashboard.putNumber("RIGHT DRIVE", right);
 //		driveTrain.pidDrive(left, right);
 //		SmartDashboard.putBoolean("DRIVE PID ENABLED", driveTrain.getPIDEnabled());
-//		SmartDashboard.putNumber("leftDriveEnc", driveTrain.getLeftEncoderRate());
-//		SmartDashboard.putNumber("rightDriveEnc", driveTrain.getRightEncoderRate());
+		SmartDashboard.putNumber("leftDriveEnc", driveTrain.getLeftEnc());
+		SmartDashboard.putNumber("rightDriveEnc", driveTrain.getRightEnc());
 //		SmartDashboard.putNumber("left speed", driveTrain.getLeftSpeed());
 //		SmartDashboard.putNumber("right speed", driveTrain.getRightSpeed());
 //		 Cubed for smoother driving

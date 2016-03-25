@@ -1,6 +1,6 @@
 package org.usfirst.frc.team2854.robot;
 
-import org.usfirst.frc.team2854.robot.subsystems.RateEncoder;
+//import org.usfirst.frc.team2854.robot.subsystems.RateEncoder;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.Counter;
@@ -27,13 +27,13 @@ public class RMap{
 //	public final Talon TALON_7 = new Talon(7);
 	
 	public final Encoder ENCODER_34;
-	public final RateEncoder ENCODER_01;
+	public final Encoder ENCODER_01;
 //	public final Encoder ENCODER_67;
-	public final RateEncoder ENCODER_89;
+	public final Encoder ENCODER_89;
 	//boolean is whether reversed or not
 
-	public final Counter COUNTER_2; //insert DIO port
-//	public final Counter COUNTER_6 = new Counter(6); //insert DIO port
+//	public final Counter COUNTER_2; //insert DIO port
+	public final Counter COUNTER_6; //insert DIO port
 	
 	public RMap(){
 //		TALONSRX_4 = new CANTalon(4);
@@ -51,12 +51,12 @@ public class RMap{
 //		TALON_7 = new Talon(7);
 		
 		ENCODER_34 = new Encoder(3, 4, true, Encoder.EncodingType.k4X);
-		ENCODER_01 = new RateEncoder(0, 1, true, Encoder.EncodingType.k4X, "right enc PID");
+		ENCODER_01 = new Encoder(0, 1, true, Encoder.EncodingType.k4X);
 //		ENCODER_67 = new Encoder(6, 7, true, Encoder.EncodingType.k4X);
-		ENCODER_89 = new RateEncoder(8, 9, true, Encoder.EncodingType.k4X, "left enc PID");
+		ENCODER_89 = new Encoder(8, 9, true, Encoder.EncodingType.k4X);
 		//boolean is whether reversed or not
 
-		COUNTER_2 = new Counter(2); //insert DIO port
+		COUNTER_6 = new Counter(6); //insert DIO port
 //		COUNTER_6 = new Counter(6); //insert DIO port
 	}
 }

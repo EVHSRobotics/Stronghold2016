@@ -18,8 +18,8 @@ public class DriveTrain extends Subsystem {
 //	private MotorSide leftMotors;
 //	private MotorSide rightMotors;
 	
-	private RateEncoder leftEnc;
-	private RateEncoder rightEnc;
+	private Encoder leftEnc;
+	private Encoder rightEnc;
 	private PIDController pidMoveLeft;
 	private PIDController pidMoveRight;
 	private boolean PIDEnabled = true;
@@ -29,12 +29,12 @@ public class DriveTrain extends Subsystem {
 	private final double I_VAL = 0;
 	private final double D_VAL = 0;
 	
-	public DriveTrain(SpeedController frontleft, SpeedController backleft, SpeedController frontright, SpeedController backright, RateEncoder aLeftE, RateEncoder aRightE){
+	public DriveTrain(SpeedController frontleft, SpeedController backleft, SpeedController frontright, SpeedController backright, Encoder aLeftE, Encoder aRightE){
 //		leftMotors = new MotorSide(frontleft,backleft, "LEFT DRIVE", 1);
 //		rightMotors = new MotorSide(frontright,backright, "RIGHT DRIVE", 1);
 //		
-//		leftEnc = aLeftE;
-//		rightEnc = aRightE;
+		leftEnc = aLeftE;
+		rightEnc = aRightE;
 //		pidMoveLeft = new PIDController(P_VAL, I_VAL, D_VAL, leftEnc, leftMotors);
 //		pidMoveRight = new PIDController(P_VAL, I_VAL, D_VAL, rightEnc, rightMotors);
 //		
@@ -43,6 +43,8 @@ public class DriveTrain extends Subsystem {
 		fr = frontright;
 		bl = backleft;
 		br = backright;
+		leftEnc.reset();
+		rightEnc.reset();
 	}
 	
 //	public void initPID(){
@@ -67,13 +69,13 @@ public class DriveTrain extends Subsystem {
 //		pidMoveLeft.disable();
 //		pidMoveRight.disable();
 //	}
-//	public double getLeftEncoderRate(){
-//		return leftEnc.getRate();
-//	}
-//	
-//	public double getRightEncoderRate(){
-//		return rightEnc.getRate();
-//	}
+	public double getLeftEnc(){
+		return leftEnc.get();
+	}
+	
+	public double getRightEnc(){
+		return rightEnc.get();
+	}
 //	
 //	public double getLeftSpeed(){
 //		return leftMotors.getSpeed();
@@ -114,9 +116,19 @@ public class DriveTrain extends Subsystem {
 //    	rightMotors.set(y2);
     }
 	
+	public void moveLeft(double speed){
+		fl.set(speed);
+		bl.set(speed);
+	}
+	
+	public void moveRight(double speed){
+		fr.set(-speed);
+		br.set(-speed);
+	}
+	
 	public void resetEncoders(){ //should not need
-		leftEnc.reset();
-		rightEnc.reset();
+//		leftEnc.reset();
+//		rightEnc.reset();
 	}
 	
 

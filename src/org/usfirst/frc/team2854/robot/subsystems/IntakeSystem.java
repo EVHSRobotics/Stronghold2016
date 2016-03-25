@@ -19,7 +19,7 @@ public class IntakeSystem extends Subsystem{
     }
     
     public void drop(double speed){
-//    	dropController.set(speed); PLEASE REENABLE THIS
+    	dropController.set(speed); //PLEASE REENABLE THIS
     }
     public void roll(double speed){
     	rollerController.set(speed);
