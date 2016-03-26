@@ -38,9 +38,9 @@ public class Intake extends Command {
     		intakeSystem.roll(0);
     	}
     	if(moveButton.get()){
-    		intakeSystem.drop(0.5);
+    		intakeSystem.drop(1);
     	} else if(outButton.get()){
-    		intakeSystem.drop(-0.5);
+    		intakeSystem.drop(-1);
     	} else {
     		intakeSystem.drop(0);
     	} 

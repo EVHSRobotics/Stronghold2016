@@ -9,20 +9,19 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  *
  */
-public class ZeroBreach extends Command {
+public class DropBreach extends Command {
 	PIDBreachSystem breachSystem;
-    public ZeroBreach(PIDBreachSystem bSys) {
+    public DropBreach(PIDBreachSystem bSys) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	breachSystem = bSys;
-    	breachSystem.setCounterStart();
 
     	requires(breachSystem);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	breachSystem.moveArm(-.8);
+    	breachSystem.moveArm(.8);
     	Timer.delay(.5);
     	breachSystem.moveArm(0);
     }
@@ -39,13 +38,11 @@ public class ZeroBreach extends Command {
     // Called once after isFinished returns true
     protected void end() {
     	breachSystem.moveArm(0);
-    	((PIDBreachSystem)breachSystem).resetEncoder();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
     	breachSystem.moveArm(0);
-    	((PIDBreachSystem)breachSystem).resetEncoder();
     }
 }

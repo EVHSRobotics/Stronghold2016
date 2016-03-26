@@ -16,8 +16,8 @@ public class PIDBreachSystem extends PIDSubsystem implements Breaching {
 	public static final int TOP_SETPOINT = 970;
 	public static final int MID_SETPOINT = 870;
 	public static final int BOT_SETPOINT = 200;
-	private boolean PIDEnabled = true;
-	private boolean defaultPID = true; //turns it on or off on start
+	private boolean PIDEnabled = false;
+	private boolean defaultPID = false; //turns it on or off on start
 	private boolean zeroing = false;
 	
 	private Counter counter; //insert DIO port

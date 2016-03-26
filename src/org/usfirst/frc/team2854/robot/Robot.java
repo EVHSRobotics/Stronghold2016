@@ -1,10 +1,13 @@
 
 package org.usfirst.frc.team2854.robot;
 
+import org.usfirst.frc.team2854.robot.commands.AutoSequence;
 import org.usfirst.frc.team2854.robot.commands.Breach;
 import org.usfirst.frc.team2854.robot.commands.Drive;
 import org.usfirst.frc.team2854.robot.commands.DriveAuto;
+import org.usfirst.frc.team2854.robot.commands.DropBreach;
 import org.usfirst.frc.team2854.robot.commands.Intake;
+import org.usfirst.frc.team2854.robot.commands.ZeroBreach;
 import org.usfirst.frc.team2854.robot.subsystems.Breaching;
 import org.usfirst.frc.team2854.robot.subsystems.CameraSystem;
 import org.usfirst.frc.team2854.robot.subsystems.ClimbSystem;
@@ -51,8 +54,11 @@ public class Robot extends IterativeRobot {
 //		climbSystem = new ClimbSystem(rmap.TALON_2, rmap.TALON_3, rmap.TALON_4, rmap.ENCODER_34);
 		System.out.println("INIT");
         // instantiate the command used for the autonomous period
-        autonomousCommand = new DriveAuto(driveTrain, 6000, 5000);
-		
+        Command thirdCommand = new ZeroBreach((PIDBreachSystem)breachSystem);
+		Command driveCommand = new DriveAuto(driveTrain, intakeSystem, 4000,4000);
+		Command secondCommand = new DropBreach((PIDBreachSystem)breachSystem);
+//		autonomousCommand = new AutoSequence(driveCommand, secondCommand, thirdCommand);
+		autonomousCommand = driveCommand;
     }
 	
 	public void disabledPeriodic() {
