@@ -16,26 +16,26 @@ public abstract class Control{
   public static int evaluateButtonType(ButtonType aButtonType){
     switch(aButtonType) {
       case a:
-        return 0;
-      case b:
         return 1;
-      case x:
+      case b:
         return 2;
-      case y:
+      case x:
         return 3;
-      case lb:
+      case y:
         return 4;
-      case rb:
+      case lb:
         return 5;
-      case back:
+      case rb:
         return 6;
-      case start:
+      case back:
         return 7;
+      case start:
+        return 8;
 // these are activated when pressing down the sticks
       case ls:
-        return 8;
-      case rs:
         return 9;
+      case rs:
+        return 10;
       default:
         return -1;
     }
