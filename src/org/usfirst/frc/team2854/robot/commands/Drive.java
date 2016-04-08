@@ -57,21 +57,28 @@ public class Drive extends Command {
 //    		}
 //		}
 
-		double aku = leftAxis.deadbandGet();
-
+		
 		/* if (Math.abs(aku)>.9){
 			aku = Math.round(aku);
 			System.out.println("nitros activated");
 		}
 		*/ 
-
-		double left = piecewise(aku) * direction;
+		double trigger = piecewise(leftTrigger.deadbandGet()-rightTrigger.deadbandGet());
+		
+		double left = trigger;
 		double right = left;
+		double aku = leftAxis.deadbandGet(); //goes left and right
+		
+		left -= aku;
+		right += aku;
+//		double left = piecewise(aku) * direction;
+//		double right = left;
+//		left -= trigger;
+//		right += trigger;
+		
 //		double trigger = Math.pow(rightTrigger.deadbandGet(), 3)
 //				- Math.pow(leftTrigger.deadbandGet(), 3);
-		double trigger = piecewise(rightTrigger.deadbandGet()-leftTrigger.deadbandGet());
-		left -= trigger;
-		right += trigger;
+		
 		left = roundBounds(left);
 		right = roundBounds(right);
 		
@@ -82,8 +89,8 @@ public class Drive extends Command {
 //		SmartDashboard.putBoolean("DRIVE PID ENABLED", driveTrain.getPIDEnabled());
 		SmartDashboard.putNumber("leftDriveEnc", driveTrain.getLeftEnc());
 		SmartDashboard.putNumber("rightDriveEnc", driveTrain.getRightEnc());
-//		SmartDashboard.putNumber("left speed", driveTrain.getLeftSpeed());
-//		SmartDashboard.putNumber("right speed", driveTrain.getRightSpeed());
+		SmartDashboard.putNumber("left speed", driveTrain.getLeftSpeed());
+		SmartDashboard.putNumber("right speed", driveTrain.getRightSpeed());
 //		 Cubed for smoother driving
 //		System.out.println("Left: " + left + " Right: " + right);
 	}

@@ -18,11 +18,10 @@ public class BreachSystem extends Subsystem implements Breaching	 {
 	boolean PIDEnabled = false;
 	private Counter counter;
 	
-	public BreachSystem(SpeedController aDefenseMotor, Encoder aBreachEncoder, Counter aCounter) {
+	public BreachSystem(SpeedController aDefenseMotor, Encoder aBreachEncoder) {
 		// TODO Auto-generated constructor stub
 		defenseMotor = aDefenseMotor;
 		breachEncoder = aBreachEncoder;
-		counter = aCounter;
 	}
 	
 	public void stop(){

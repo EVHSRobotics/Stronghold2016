@@ -3,16 +3,14 @@ package org.usfirst.frc.team2854.robot;
 
 import org.usfirst.frc.team2854.robot.commands.AutoSequence;
 import org.usfirst.frc.team2854.robot.commands.Breach;
+import org.usfirst.frc.team2854.robot.commands.DoNothing;
 import org.usfirst.frc.team2854.robot.commands.Drive;
 import org.usfirst.frc.team2854.robot.commands.DriveAuto;
-import org.usfirst.frc.team2854.robot.commands.DropBreach;
-import org.usfirst.frc.team2854.robot.commands.Intake;
 import org.usfirst.frc.team2854.robot.commands.ZeroBreach;
 import org.usfirst.frc.team2854.robot.subsystems.Breaching;
 import org.usfirst.frc.team2854.robot.subsystems.CameraSystem;
 import org.usfirst.frc.team2854.robot.subsystems.ClimbSystem;
 import org.usfirst.frc.team2854.robot.subsystems.DriveTrain;
-import org.usfirst.frc.team2854.robot.subsystems.IntakeSystem;
 import org.usfirst.frc.team2854.robot.subsystems.PIDBreachSystem;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -33,7 +31,7 @@ public class Robot extends IterativeRobot {
 
 	private static  Breaching breachSystem;
 	private static  DriveTrain driveTrain;
-	private static  IntakeSystem intakeSystem;
+//	private static  IntakeSystem intakeSystem;
 	private static  ClimbSystem climbSystem;
 
     private Command autonomousCommand;
@@ -45,20 +43,21 @@ public class Robot extends IterativeRobot {
     public void robotInit() {
 		oi = new OI();
 		RMap rmap = new RMap();
-		breachSystem = new PIDBreachSystem(rmap.TALONSRX_1, rmap.ENCODER_34, rmap.COUNTER_6);
+		breachSystem = new PIDBreachSystem(rmap.TALON_5, rmap.ENCODER_34);
 //		breachSystem = new BreachSystem(rmap.TALON_1, rmap.ENCODER_01, rmap.COUNTER_9);
 		
 //		cameraSystem = new CameraSystem();
 		driveTrain = new DriveTrain(rmap.TALON_1, rmap.TALON_2, rmap.TALON_3, rmap.TALON_4, rmap.ENCODER_89, rmap.ENCODER_01);
-		intakeSystem = new IntakeSystem(rmap.TALON_5, rmap.TALON_0);
+//		intakeSystem = new IntakeSystem(rmap.TALON_5, rmap.TALON_0);
 //		climbSystem = new ClimbSystem(rmap.TALON_2, rmap.TALON_3, rmap.TALON_4, rmap.ENCODER_34);
 		System.out.println("INIT");
         // instantiate the command used for the autonomous period
-        Command thirdCommand = new ZeroBreach((PIDBreachSystem)breachSystem);
-		Command driveCommand = new DriveAuto(driveTrain, intakeSystem, 4000,4000);
-		Command secondCommand = new DropBreach((PIDBreachSystem)breachSystem);
-//		autonomousCommand = new AutoSequence(driveCommand, secondCommand, thirdCommand);
-		autonomousCommand = driveCommand;
+        Command lowerCommand = new ZeroBreach((PIDBreachSystem)breachSystem);
+		Command driveCommand = new DriveAuto(driveTrain,4000,4000);
+//		Command secondCommand = new DropBreach((PIDBreachSystem)breachSystem);
+		Command nullCommand = new DoNothing();
+		autonomousCommand = new AutoSequence(lowerCommand, driveCommand, nullCommand);
+//		autonomousCommand = driveCommand;
     }
 	
 	public void disabledPeriodic() {
@@ -74,7 +73,7 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
-        Scheduler.getInstance().run();
+    	Scheduler.getInstance().run();
     }
 
     public void teleopInit() {
@@ -86,8 +85,8 @@ public class Robot extends IterativeRobot {
         if (autonomousCommand != null) autonomousCommand.cancel();
 //        Scheduler.getInstance().add(new Perceive(cameraSystem, oi.controller0.brb));
 
-        Scheduler.getInstance().add(new Drive(driveTrain, oi.controller0.aly, oi.controller0.alt, oi.controller0.art, oi.controller0.bstart, oi.controller0.bback));
-        Scheduler.getInstance().add(new Intake(intakeSystem, oi.controller1.alt, oi.controller1.art, oi.controller1.ba, oi.controller1.bx));
+        Scheduler.getInstance().add(new Drive(driveTrain, oi.controller0.alx, oi.controller0.alt, oi.controller0.art, oi.controller0.bstart, oi.controller0.bback));
+//        Scheduler.getInstance().add(new Intake(intakeSystem, oi.controller1.alt, oi.controller1.art, oi.controller1.ba, oi.controller1.bx));
         Scheduler.getInstance().add(new Breach(breachSystem, oi.controller1.aly, oi.controller1.bback,
         		oi.controller1.blb, oi.controller1.bls, oi.controller1.brb, oi.controller1.bstart));
 //        Scheduler.getInstance().add(new Climb(climbSystem, oi.controller1.ary, oi.controller1.arx));

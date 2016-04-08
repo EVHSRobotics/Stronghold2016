@@ -13,9 +13,9 @@ import edu.wpi.first.wpilibj.Talon;
  */
 public class RMap{
 //	public final  CANTalon TALONSRX_4 = new CANTalon(4);
-	public final CANTalon TALONSRX_1;
-	public final CANTalon TALONSRX_2;
-	public final CANTalon TALONSRX_3;
+//	public final CANTalon TALONSRX_1;
+//	public final CANTalon TALONSRX_2;
+//	public final CANTalon TALONSRX_3;
 	
 	public final Talon TALON_0;
 	public final Talon TALON_1;
@@ -33,13 +33,13 @@ public class RMap{
 	//boolean is whether reversed or not
 
 //	public final Counter COUNTER_2; //insert DIO port
-	public final Counter COUNTER_6; //insert DIO port
+//	public final Counter COUNTER_6; //insert DIO port
 	
 	public RMap(){
 //		TALONSRX_4 = new CANTalon(4);
-		TALONSRX_1 = new CANTalon(1);
-		TALONSRX_2 = new CANTalon(2);
-		TALONSRX_3 = new CANTalon(3);
+//		TALONSRX_1 = new CANTalon(1);
+//		TALONSRX_2 = new CANTalon(2);
+//		TALONSRX_3 = new CANTalon(3);
 		
 		TALON_0 = new Talon(0);
 		TALON_1 = new Talon(1);
@@ -56,7 +56,6 @@ public class RMap{
 		ENCODER_89 = new Encoder(8, 9, true, Encoder.EncodingType.k4X);
 		//boolean is whether reversed or not
 
-		COUNTER_6 = new Counter(6); //insert DIO port
 //		COUNTER_6 = new Counter(6); //insert DIO port
 	}
 }

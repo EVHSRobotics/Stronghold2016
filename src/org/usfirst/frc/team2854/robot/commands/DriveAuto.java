@@ -18,11 +18,11 @@ public class DriveAuto extends Command {
 	private double rightStart;
 	private double leftStart;
 	private IntakeSystem intakeSystem;
-    public DriveAuto(DriveTrain dTrain, IntakeSystem intake, double lDist, double rDist) {
+    public DriveAuto(DriveTrain dTrain, double lDist, double rDist) {
 		leftDist = lDist;
 		rightDist = rDist;
 		driveTrain = dTrain;
-		intakeSystem = intake;
+//		intakeSystem = intake;
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis)
     	requires(driveTrain);
@@ -33,10 +33,10 @@ public class DriveAuto extends Command {
     	leftStart = driveTrain.getLeftEnc();
     	rightStart = driveTrain.getRightEnc();
 
-    	intakeSystem.roll(-.5);
-    	Timer.delay(1);
-    	intakeSystem.roll(0);
-    	setTimeout(8);
+//    	intakeSystem.roll(-.5);
+//    	Timer.delay(1);
+//    	intakeSystem.roll(0);
+//    	setTimeout(8);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -50,7 +50,7 @@ public class DriveAuto extends Command {
 //    	}
     	if(driveTrain.getRightEnc() - rightStart< rightDist){
     		driveTrain.moveRight(.85);
-    		driveTrain.moveLeft(.65);
+    		driveTrain.moveLeft(.85);
     	}else{
     		driveTrain.moveRight(0);
     		driveTrain.moveLeft(0);

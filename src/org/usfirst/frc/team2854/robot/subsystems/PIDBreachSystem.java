@@ -22,16 +22,16 @@ public class PIDBreachSystem extends PIDSubsystem implements Breaching {
 	
 	private Counter counter; //insert DIO port
 	
-	private int count;
+//	private int count;
 	
-	public PIDBreachSystem(SpeedController aDefenseMotor, Encoder aBreachEncoder, Counter aCounter) {
+	public PIDBreachSystem(SpeedController aDefenseMotor, Encoder aBreachEncoder){//, Counter aCounter) {
 		super("Breach", .008, 0, .01);
 		defenseMotor = aDefenseMotor;
 		breachEncoder = aBreachEncoder;
-		counter = aCounter;
+//		counter = aCounter;
 		setOutputRange(-1,1); //min, max vals for motor to move
 		setAbsoluteTolerance(40); //how close arm can be
-		count = counter.get();
+//		count = counter.get();
 	}
 	
 	public void changeDefaultPID(boolean b){
@@ -81,7 +81,7 @@ public class PIDBreachSystem extends PIDSubsystem implements Breaching {
 	}
 	
 	public void setCounterStart(){
-		count = counter.get();
+//		count = counter.get();
 	}
 	
 	public boolean isZeroing(){
@@ -90,7 +90,8 @@ public class PIDBreachSystem extends PIDSubsystem implements Breaching {
 	
 	public boolean counterSame(){
 //		System.out.println("COUNT: "+ count + " COUNTER:" + counter.get());
-		return count == counter.get();
+//		return count == counter.get();
+		return false;
 	}
 	
 	
@@ -126,6 +127,18 @@ public class PIDBreachSystem extends PIDSubsystem implements Breaching {
 	
 	public void moveArm(double speed){
 		defenseMotor.set(speed);
+//		if(Math.abs(speed) > 0){
+//			if(PIDEnabled){
+//				disablePID();
+//			}
+//			defenseMotor.set(speed);
+//			
+//		}else{
+//			defenseMotor.set(0);
+//			if(!PIDEnabled){
+//				enablePID();
+//			}
+//		}
 	}
     
     public void initDefaultCommand() {

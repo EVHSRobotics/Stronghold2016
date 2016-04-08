@@ -76,13 +76,13 @@ public class DriveTrain extends Subsystem {
 	public double getRightEnc(){
 		return rightEnc.get();
 	}
-//	
-//	public double getLeftSpeed(){
-//		return leftMotors.getSpeed();
-//	}
-//	public double getRightSpeed(){
-//		return rightMotors.getSpeed();
-//	}
+	
+	public double getLeftSpeed(){
+		return fl.get();
+	}
+	public double getRightSpeed(){
+		return fr.get();
+	}
 //	public boolean getPIDEnabled(){
 //		return PIDEnabled;
 //	}

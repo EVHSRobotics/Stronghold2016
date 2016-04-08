@@ -47,51 +47,53 @@ public class Breach extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if(((PIDBreachSystem)breachSystem).isZeroing()){
-    		System.out.println("ZEROING");
-    		if(resetButton.getHold()){ //manual breakout, but do not reset encoder
-    			((PIDBreachSystem)breachSystem).moveArm(0);
-    			((PIDBreachSystem)breachSystem).enableZeroing(false);
-    		}else if(((PIDBreachSystem)breachSystem).counterSame()){
-        		((PIDBreachSystem)breachSystem).moveArm(-.6);
-    		}else{ //hall effect has been tripped, counter vals are now different
-    			((PIDBreachSystem)breachSystem).moveArm(0);
-    			((PIDBreachSystem)breachSystem).enableZeroing(false);
-    			((PIDBreachSystem)breachSystem).resetEncoder();
-    		}
-    	}else{
-        	if(switchButton.getHold()){
-        		if(((PIDBreachSystem)breachSystem).getPIDEnabled()){
-            		((PIDBreachSystem)breachSystem).disablePID();
-            		((PIDBreachSystem)breachSystem).changeDefaultPID(false);
-        		}else{
-        			((PIDBreachSystem)breachSystem).enablePID();
-        			((PIDBreachSystem)breachSystem).changeDefaultPID(true);
-        		}
-        	}
-        	if(resetButton.getHold() && (breachSystem.encoderGet() >= 0)){ //only works (hopefully) if arm is ahead of magnet
-        		((PIDBreachSystem)breachSystem).enableZeroing(true);
-        		System.out.println("ENCODER RESET");
-        	}
-        	if(!((PIDBreachSystem)breachSystem).getPIDEnabled()){
-        		((PIDBreachSystem)breachSystem).moveArm(piecewise(liftAxis.deadbandGet()));
-        	}else{ //PID is enabled
-            	System.out.println("breach encoder: " + ((PIDBreachSystem)breachSystem).encoderGet());
-            	if(botButton.getHold()){
-            		((PIDBreachSystem)breachSystem).goTo(PIDBreachSystem.BOT_SETPOINT);
-            		System.out.println("MOVE BOT");
-            	}else if(midButton.getHold()){
-            		((PIDBreachSystem)breachSystem).goTo(PIDBreachSystem.MID_SETPOINT);
-            	}else if(topButton.getHold()){
-            		System.out.println("MOVE TOP");
-            		((PIDBreachSystem)breachSystem).goTo(PIDBreachSystem.TOP_SETPOINT);
-            	}
-        	}
+
+		((PIDBreachSystem)breachSystem).moveArm(piecewise(liftAxis.deadbandGet()));
+//    	if(((PIDBreachSystem)breachSystem).isZeroing()){
+//    		System.out.println("ZEROING");
+//    		if(resetButton.getHold()){ //manual breakout, but do not reset encoder
+//    			((PIDBreachSystem)breachSystem).moveArm(0);
+//    			((PIDBreachSystem)breachSystem).enableZeroing(false);
+//    		}else if(((PIDBreachSystem)breachSystem).counterSame()){
+//        		((PIDBreachSystem)breachSystem).moveArm(-.6);
+//    		}else{ //hall effect has been tripped, counter vals are now different
+//    			((PIDBreachSystem)breachSystem).moveArm(0);
+//    			((PIDBreachSystem)breachSystem).enableZeroing(false);
+//    			((PIDBreachSystem)breachSystem).resetEncoder();
+//    		}
+//    	}else{
+//        	if(switchButton.getHold()){
+//        		if(((PIDBreachSystem)breachSystem).getPIDEnabled()){
+//            		((PIDBreachSystem)breachSystem).disablePID();
+//            		((PIDBreachSystem)breachSystem).changeDefaultPID(false);
+//        		}else{
+//        			((PIDBreachSystem)breachSystem).enablePID();
+//        			((PIDBreachSystem)breachSystem).changeDefaultPID(true);
+//        		}
+//        	}
+//        	if(resetButton.getHold() && (breachSystem.encoderGet() >= 0)){ //only works (hopefully) if arm is ahead of magnet
+//        		((PIDBreachSystem)breachSystem).enableZeroing(true);
+//        		System.out.println("ENCODER RESET");
+//        	}
+//        	if(!((PIDBreachSystem)breachSystem).getPIDEnabled()){
+//        		((PIDBreachSystem)breachSystem).moveArm(piecewise(liftAxis.deadbandGet()));
+//        	}else{ //PID is enabled
+//            	System.out.println("breach encoder: " + ((PIDBreachSystem)breachSystem).encoderGet());
+//            	if(botButton.getHold()){
+//            		((PIDBreachSystem)breachSystem).goTo(PIDBreachSystem.BOT_SETPOINT);
+//            		System.out.println("MOVE BOT");
+//            	}else if(midButton.getHold()){
+//            		((PIDBreachSystem)breachSystem).goTo(PIDBreachSystem.MID_SETPOINT);
+//            	}else if(topButton.getHold()){
+//            		System.out.println("MOVE TOP");
+//            		((PIDBreachSystem)breachSystem).goTo(PIDBreachSystem.TOP_SETPOINT);
+//            	}
+//        	}
 
         	SmartDashboard.putNumber("HALL EFFECT", breachSystem.getCounter());
         	SmartDashboard.putNumber("ENCODER VAL", breachSystem.encoderGet());
         	SmartDashboard.putBoolean("PID ENABLED", ((PIDBreachSystem)breachSystem).getPIDEnabled());
-    	}
+//    	}
         	
         	
 //    	double liftspeed = liftAxis.deadbandGet();
