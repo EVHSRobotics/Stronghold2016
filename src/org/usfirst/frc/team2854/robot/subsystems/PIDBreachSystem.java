@@ -62,10 +62,12 @@ public class PIDBreachSystem extends PIDSubsystem implements Breaching {
 //		
 //	}
 	
+//	public int getCounter(){
+//		return counter.get();
+//	}
 	public int getCounter(){
-		return counter.get();
+		return 0;
 	}
-	
 	public void enableZeroing(boolean b){
 		zeroing = b;
 		setCounterStart();

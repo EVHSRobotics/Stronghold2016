@@ -1,17 +1,16 @@
 package org.usfirst.frc.team2854.robot.commands;
 
-import org.usfirst.frc.team2854.robot.subsystems.PIDBreachSystem;
+import org.usfirst.frc.team2854.robot.subsystems.BreachSystem;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
  */
 public class DropBreach extends Command {
-	PIDBreachSystem breachSystem;
-    public DropBreach(PIDBreachSystem bSys) {
+	BreachSystem breachSystem;
+    public DropBreach(BreachSystem bSys) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	breachSystem = bSys;

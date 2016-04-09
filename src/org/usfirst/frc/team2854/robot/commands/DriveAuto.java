@@ -32,6 +32,7 @@ public class DriveAuto extends Command {
     protected void initialize() {
     	leftStart = driveTrain.getLeftEnc();
     	rightStart = driveTrain.getRightEnc();
+    	setTimeout(3);
 
 //    	intakeSystem.roll(-.5);
 //    	Timer.delay(1);

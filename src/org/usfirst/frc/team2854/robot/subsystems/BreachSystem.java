@@ -14,14 +14,11 @@ public class BreachSystem extends Subsystem implements Breaching	 {
     // here. Call these from Commands.
 	
 	private SpeedController defenseMotor;
-	private Encoder breachEncoder;
 	boolean PIDEnabled = false;
-	private Counter counter;
 	
-	public BreachSystem(SpeedController aDefenseMotor, Encoder aBreachEncoder) {
+	public BreachSystem(SpeedController aDefenseMotor) {
 		// TODO Auto-generated constructor stub
 		defenseMotor = aDefenseMotor;
-		breachEncoder = aBreachEncoder;
 	}
 	
 	public void stop(){
@@ -36,17 +33,6 @@ public class BreachSystem extends Subsystem implements Breaching	 {
 		
 	}
 	
-	public int encoderGet(){
-		return breachEncoder.getRaw();
-	}
-	
-	public void resetEncoder(){
-		breachEncoder.reset();
-	}
-	
-	public int getCounter(){
-		return counter.get();
-	}
 	
 	public void moveArm(double speed){
 		defenseMotor.set(speed);

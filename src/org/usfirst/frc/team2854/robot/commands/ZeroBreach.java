@@ -1,17 +1,17 @@
 package org.usfirst.frc.team2854.robot.commands;
 
+import org.usfirst.frc.team2854.robot.subsystems.BreachSystem;
 import org.usfirst.frc.team2854.robot.subsystems.PIDBreachSystem;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
  */
 public class ZeroBreach extends Command {
-	PIDBreachSystem breachSystem;
-    public ZeroBreach(PIDBreachSystem bSys) {
+	BreachSystem breachSystem;
+    public ZeroBreach(BreachSystem bSys) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	breachSystem = bSys;
@@ -39,13 +39,13 @@ public class ZeroBreach extends Command {
     // Called once after isFinished returns true
     protected void end() {
     	breachSystem.moveArm(0);
-    	((PIDBreachSystem)breachSystem).resetEncoder();
+//    	((PIDBreachSystem)breachSystem).resetEncoder();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
     	breachSystem.moveArm(0);
-    	((PIDBreachSystem)breachSystem).resetEncoder();
+//    	((PIDBreachSystem)breachSystem).resetEncoder();
     }
 }

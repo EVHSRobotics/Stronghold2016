@@ -2,6 +2,7 @@ package org.usfirst.frc.team2854.robot.commands;
 
 import org.usfirst.frc.team2854.robot.oi.Axis;
 import org.usfirst.frc.team2854.robot.oi.Button;
+import org.usfirst.frc.team2854.robot.subsystems.BreachSystem;
 import org.usfirst.frc.team2854.robot.subsystems.Breaching;
 import org.usfirst.frc.team2854.robot.subsystems.PIDBreachSystem;
 
@@ -41,14 +42,14 @@ public class Breach extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	requires((Subsystem) breachSystem);
-    	((PIDBreachSystem)breachSystem).initDefaultPID();
+//    	((BreachSystem)breachSystem).initDefaultPID();
 //    	((PIDBreachSystem)breachSystem).enableZeroing(true);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
 
-		((PIDBreachSystem)breachSystem).moveArm(piecewise(liftAxis.deadbandGet()));
+		((BreachSystem)breachSystem).moveArm(piecewise(liftAxis.deadbandGet()));
 //    	if(((PIDBreachSystem)breachSystem).isZeroing()){
 //    		System.out.println("ZEROING");
 //    		if(resetButton.getHold()){ //manual breakout, but do not reset encoder
@@ -90,9 +91,7 @@ public class Breach extends Command {
 //            	}
 //        	}
 
-        	SmartDashboard.putNumber("HALL EFFECT", breachSystem.getCounter());
-        	SmartDashboard.putNumber("ENCODER VAL", breachSystem.encoderGet());
-        	SmartDashboard.putBoolean("PID ENABLED", ((PIDBreachSystem)breachSystem).getPIDEnabled());
+//        	SmartDashboard.putBoolean("PID ENABLED", ((PIDBreachSystem)breachSystem).getPIDEnabled());
 //    	}
         	
         	

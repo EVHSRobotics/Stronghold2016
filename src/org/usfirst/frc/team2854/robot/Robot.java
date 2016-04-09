@@ -7,6 +7,7 @@ import org.usfirst.frc.team2854.robot.commands.DoNothing;
 import org.usfirst.frc.team2854.robot.commands.Drive;
 import org.usfirst.frc.team2854.robot.commands.DriveAuto;
 import org.usfirst.frc.team2854.robot.commands.ZeroBreach;
+import org.usfirst.frc.team2854.robot.subsystems.BreachSystem;
 import org.usfirst.frc.team2854.robot.subsystems.Breaching;
 import org.usfirst.frc.team2854.robot.subsystems.CameraSystem;
 import org.usfirst.frc.team2854.robot.subsystems.ClimbSystem;
@@ -43,7 +44,7 @@ public class Robot extends IterativeRobot {
     public void robotInit() {
 		oi = new OI();
 		RMap rmap = new RMap();
-		breachSystem = new PIDBreachSystem(rmap.TALON_5, rmap.ENCODER_34);
+		breachSystem = new BreachSystem(rmap.TALON_5);
 //		breachSystem = new BreachSystem(rmap.TALON_1, rmap.ENCODER_01, rmap.COUNTER_9);
 		
 //		cameraSystem = new CameraSystem();
@@ -52,7 +53,7 @@ public class Robot extends IterativeRobot {
 //		climbSystem = new ClimbSystem(rmap.TALON_2, rmap.TALON_3, rmap.TALON_4, rmap.ENCODER_34);
 		System.out.println("INIT");
         // instantiate the command used for the autonomous period
-        Command lowerCommand = new ZeroBreach((PIDBreachSystem)breachSystem);
+        Command lowerCommand = new ZeroBreach((BreachSystem)breachSystem);
 		Command driveCommand = new DriveAuto(driveTrain,4000,4000);
 //		Command secondCommand = new DropBreach((PIDBreachSystem)breachSystem);
 		Command nullCommand = new DoNothing();
