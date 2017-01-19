@@ -87,10 +87,10 @@ public class Drive extends Command {
 		SmartDashboard.putNumber("RIGHT DRIVE", right);
 //		driveTrain.pidDrive(left, right);
 //		SmartDashboard.putBoolean("DRIVE PID ENABLED", driveTrain.getPIDEnabled());
-		SmartDashboard.putNumber("leftDriveEnc", driveTrain.getLeftEnc());
-		SmartDashboard.putNumber("rightDriveEnc", driveTrain.getRightEnc());
-		SmartDashboard.putNumber("left speed", driveTrain.getLeftSpeed());
-		SmartDashboard.putNumber("right speed", driveTrain.getRightSpeed());
+//		SmartDashboard.putNumber("leftDriveEnc", driveTrain.getLeftEnc());
+//		SmartDashboard.putNumber("rightDriveEnc", driveTrain.getRightEnc());
+//		SmartDashboard.putNumber("left speed", driveTrain.getLeftSpeed());
+//		SmartDashboard.putNumber("right speed", driveTrain.getRightSpeed());
 //		 Cubed for smoother driving
 //		System.out.println("Left: " + left + " Right: " + right);
 	}

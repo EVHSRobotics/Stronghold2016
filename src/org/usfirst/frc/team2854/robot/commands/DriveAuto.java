@@ -30,8 +30,8 @@ public class DriveAuto extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	leftStart = driveTrain.getLeftEnc();
-    	rightStart = driveTrain.getRightEnc();
+//    	leftStart = driveTrain.getLeftEnc();
+//    	rightStart = driveTrain.getRightEnc();
     	setTimeout(3);
 
 //    	intakeSystem.roll(-.5);
@@ -42,20 +42,20 @@ public class DriveAuto extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	SmartDashboard.putNumber("LEFT AUTO", driveTrain.getLeftEnc() - leftStart );
-    	SmartDashboard.putNumber("RIGHT AUTO", driveTrain.getRightEnc() - rightStart );
+//    	SmartDashboard.putNumber("LEFT AUTO", driveTrain.getLeftEnc() - leftStart );
+//    	SmartDashboard.putNumber("RIGHT AUTO", driveTrain.getRightEnc() - rightStart );
 //    	if(driveTrain.getLeftEnc() - leftStart < leftDist){
 //    		driveTrain.moveLeft(.65);
 //    	}else{
 //    		driveTrain.moveLeft(0);
 //    	}
-    	if(driveTrain.getRightEnc() - rightStart< rightDist){
-    		driveTrain.moveRight(.85);
-    		driveTrain.moveLeft(.85);
-    	}else{
-    		driveTrain.moveRight(0);
-    		driveTrain.moveLeft(0);
-    	}
+//    	if(driveTrain.getRightEnc() - rightStart< rightDist){
+//    		driveTrain.moveRight(.85);
+//    		driveTrain.moveLeft(.85);
+//    	}else{
+//    		driveTrain.moveRight(0);
+//    		driveTrain.moveLeft(0);
+//    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()

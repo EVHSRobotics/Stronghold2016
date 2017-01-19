@@ -12,9 +12,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class Perceive extends Command {
 
 	private CameraSystem cameraSystem;
-	private Button cameraFlipButton;
-	
-	
+	private Button cameraFlipButton;	
     public Perceive(CameraSystem aCameraSystem, Button aCameraFlipButton) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
@@ -28,16 +26,16 @@ public class Perceive extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	cameraSystem.updateCam();
-    	if (cameraFlipButton.getHold()){
-    		if (cameraSystem.getCurrCam() == cameraSystem.CAM_0){
-    			System.out.println("Switched to cam1");
-    			cameraSystem.changeCam(cameraSystem.CAM_1);
-    		} else {
-    			System.out.println("Switched to cam0");
-    			cameraSystem.changeCam(cameraSystem.CAM_0);
-    		}
-    	}
+//    	cameraSystem.updateCam();
+//    	if (cameraFlipButton.getHold()){
+//    		if (cameraSystem.getCurrCam() == cameraSystem.CAM_0){
+//    			System.out.println("Switched to cam1");
+//    			cameraSystem.changeCam(cameraSystem.CAM_1);
+//    		} else {
+//    			System.out.println("Switched to cam0");
+//    			cameraSystem.changeCam(cameraSystem.CAM_0);
+//    		}
+//    	}
 //    	Timer.delay(0.005);	mehbe we need this - we don't
     }
 

@@ -29,12 +29,12 @@ public class DriveTrain extends Subsystem {
 	private final double I_VAL = 0;
 	private final double D_VAL = 0;
 	
-	public DriveTrain(SpeedController frontleft, SpeedController backleft, SpeedController frontright, SpeedController backright, Encoder aLeftE, Encoder aRightE){
+	public DriveTrain(SpeedController frontleft, SpeedController backleft, SpeedController frontright, SpeedController backright){
 //		leftMotors = new MotorSide(frontleft,backleft, "LEFT DRIVE", 1);
 //		rightMotors = new MotorSide(frontright,backright, "RIGHT DRIVE", 1);
 //		
-		leftEnc = aLeftE;
-		rightEnc = aRightE;
+//		leftEnc = aLeftE;
+//		rightEnc = aRightE;
 //		pidMoveLeft = new PIDController(P_VAL, I_VAL, D_VAL, leftEnc, leftMotors);
 //		pidMoveRight = new PIDController(P_VAL, I_VAL, D_VAL, rightEnc, rightMotors);
 //		
@@ -43,8 +43,8 @@ public class DriveTrain extends Subsystem {
 		fr = frontright;
 		bl = backleft;
 		br = backright;
-		leftEnc.reset();
-		rightEnc.reset();
+//		leftEnc.reset();
+//		rightEnc.reset();
 	}
 	
 //	public void initPID(){
@@ -69,20 +69,20 @@ public class DriveTrain extends Subsystem {
 //		pidMoveLeft.disable();
 //		pidMoveRight.disable();
 //	}
-	public double getLeftEnc(){
-		return leftEnc.get();
-	}
-	
-	public double getRightEnc(){
-		return rightEnc.get();
-	}
-	
-	public double getLeftSpeed(){
-		return fl.get();
-	}
-	public double getRightSpeed(){
-		return fr.get();
-	}
+//	public double getLeftEnc(){
+//		return leftEnc.get();
+//	}
+//	
+//	public double getRightEnc(){
+//		return rightEnc.get();
+//	}
+//	
+//	public double getLeftSpeed(){
+//		return fl.get();
+//	}
+//	public double getRightSpeed(){
+//		return fr.get();
+//	}
 //	public boolean getPIDEnabled(){
 //		return PIDEnabled;
 //	}

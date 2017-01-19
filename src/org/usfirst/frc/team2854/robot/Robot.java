@@ -48,7 +48,7 @@ public class Robot extends IterativeRobot {
 //		breachSystem = new BreachSystem(rmap.TALON_1, rmap.ENCODER_01, rmap.COUNTER_9);
 		
 //		cameraSystem = new CameraSystem();
-		driveTrain = new DriveTrain(rmap.TALON_1, rmap.TALON_2, rmap.TALON_3, rmap.TALON_4, rmap.ENCODER_89, rmap.ENCODER_01);
+		driveTrain = new DriveTrain(rmap.TALON_0,rmap.TALON_1, rmap.TALON_2, rmap.TALON_3);
 //		intakeSystem = new IntakeSystem(rmap.TALON_5, rmap.TALON_0);
 //		climbSystem = new ClimbSystem(rmap.TALON_2, rmap.TALON_3, rmap.TALON_4, rmap.ENCODER_34);
 		System.out.println("INIT");
