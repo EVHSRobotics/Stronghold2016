@@ -3,8 +3,10 @@ package org.usfirst.frc.team2854.robot.commands;
 import org.usfirst.frc.team2854.robot.oi.Axis;
 import org.usfirst.frc.team2854.robot.oi.Button;
 import org.usfirst.frc.team2854.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team2854.robot.subsystems.PIDBreachSystem;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -16,18 +18,20 @@ public class Drive extends Command {
 	private Axis leftTrigger;
 	private Axis rightTrigger;
 	private Button directionButton;
+	private Button pidButton;
 
 	private int direction;
 
 	public Drive(DriveTrain aDriveTrain, Axis aleft, Axis lTrig, Axis rTrig,
-			Button buttonDirection) {
+			Button buttonDirection, Button pidSwitch) {
 		leftAxis = aleft;
 		leftTrigger = lTrig;
 		rightTrigger = rTrig;
 		driveTrain = aDriveTrain;
 		directionButton = buttonDirection;
+		pidButton = pidSwitch;
 
-		direction = -1;
+		direction = 1;
 	}
 
 	// Called just before this Command runs the first time
@@ -37,39 +41,58 @@ public class Drive extends Command {
 		requires(driveTrain);
 	}
 
-	boolean pressed = false;
-
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-
-		if (directionButton.get() && !pressed) {
+		if (directionButton.getHold()) {
 			direction *= -1;
-			pressed = true;
-		} else if (!directionButton.get()) {
-			pressed = false;
 		}
+//		
+//		if(pidButton.getHold()){
+//    		if(driveTrain.getPIDEnabled()){
+//        		driveTrain.disablePID();
+//        		driveTrain.changeDefaultPID(false);
+//    		}else{
+//    			driveTrain.enablePID();
+//    			driveTrain.changeDefaultPID(true);
+//    		}
+//		}
 
-		double aku = leftAxis.deadbandGet();
-
+		
 		/* if (Math.abs(aku)>.9){
-		aku = Math.round(aku);
-		System.out.println("nitros activated");
-}
+			aku = Math.round(aku);
+			System.out.println("nitros activated");
+		}
 		*/ 
-
-		double left = Math.pow(aku, 3) * direction;
+		double trigger = piecewise(leftTrigger.deadbandGet()-rightTrigger.deadbandGet());
+		
+		double left = trigger;
 		double right = left;
+		double aku = leftAxis.deadbandGet(); //goes left and right
+		
+		left -= aku;
+		right += aku;
+//		double left = piecewise(aku) * direction;
+//		double right = left;
+//		left -= trigger;
+//		right += trigger;
+		
 //		double trigger = Math.pow(rightTrigger.deadbandGet(), 3)
 //				- Math.pow(leftTrigger.deadbandGet(), 3);
-		double trigger = piecewise(rightTrigger.deadbandGet()-leftTrigger.deadbandGet());
-		left -= trigger;
-		right += trigger;
-		left =roundBounds(left);
+		
+		left = roundBounds(left);
 		right = roundBounds(right);
-
+		
 		driveTrain.tankDrive(left, right);
-		// Cubed for smoother driving
-		System.out.println("Left: " + left + " Right: " + right);
+		SmartDashboard.putNumber("LEFT DRIVE", left);
+		SmartDashboard.putNumber("RIGHT DRIVE", right);
+//		driveTrain.pidDrive(left, right);
+//		SmartDashboard.putBoolean("DRIVE PID ENABLED", driveTrain.getPIDEnabled());
+//		SmartDashboard.putNumber("leftDriveEnc", driveTrain.getLeftEnc());
+//		SmartDashboard.putNumber("rightDriveEnc", driveTrain.getRightEnc());
+//		SmartDashboard.putNumber("left speed", driveTrain.getLeftSpeed());
+//		SmartDashboard.putNumber("right speed", driveTrain.getRightSpeed());
+//		 Cubed for smoother driving
+//		System.out.println("Left: " + left + " Right: " + right);
 	}
 	
 	private double sigmoid(double in){
@@ -78,7 +101,12 @@ public class Drive extends Command {
 	}
 	
 	private double piecewise(double in){
-		double val = Math.min(in, 4*in*in*in);
+		double val = 0;
+		if(in > 0){
+			val = Math.min(in, 4*in*in*in);
+		} else {
+			val = Math.max(in,  4*in*in*in);
+		}
 		return val;
 	}
 	private double roundBounds(double in){
@@ -94,7 +122,7 @@ public class Drive extends Command {
 	protected boolean isFinished() {
 		return false;
 	}
-
+	
 	// Called once after isFinished returns true
 	protected void end() {
 		driveTrain.stop();

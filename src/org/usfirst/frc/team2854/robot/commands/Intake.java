@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2854.robot.commands;
 
+import org.usfirst.frc.team2854.robot.oi.Axis;
 import org.usfirst.frc.team2854.robot.oi.Button;
 import org.usfirst.frc.team2854.robot.subsystems.IntakeSystem;
 
@@ -10,12 +11,16 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class Intake extends Command {
 	private IntakeSystem intakeSystem;
-	private Button buttonX; //out
-	private Button buttonA; //in
-    public Intake(IntakeSystem intake, Button abuttonA, Button abuttonX) {
+	private Axis outAxis; //out
+	private Axis inAxis; //in
+	private Button moveButton; //  to drop intake
+	private Button outButton; //to undrop intake
+    public Intake(IntakeSystem intake, Axis aOutAxis, Axis aInAxis, Button aMoveButton, Button aMoveButton2) {
     	intakeSystem = intake;
-    	buttonA = abuttonA;
-    	buttonX = abuttonX;
+    	outAxis = aOutAxis;
+    	inAxis = aInAxis;
+    	moveButton = aMoveButton;
+    	outButton = aMoveButton2;
     }
 
     // Called just before this Command runs the first time
@@ -25,13 +30,20 @@ public class Intake extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if(buttonA.get()){
+    	if(Math.abs(inAxis.deadbandGet()) > 0){
     		intakeSystem.roll(1);
-    	} else if(buttonX.get()) {
+    	} else if(Math.abs(outAxis.deadbandGet()) > 0){
     		intakeSystem.roll(-1);
     	} else {
     		intakeSystem.roll(0);
     	}
+    	if(moveButton.get()){
+    		intakeSystem.drop(1);
+    	} else if(outButton.get()){
+    		intakeSystem.drop(-1);
+    	} else {
+    		intakeSystem.drop(0);
+    	} 
     }
 
     // Make this return true when this Command no longer needs to run execute()
